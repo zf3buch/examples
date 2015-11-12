@@ -13,6 +13,7 @@
         }
     ],
     "require": {
+        "zendframework/zend-diactoros": "~1.0",
         "zendframework/zend-escaper": "~2.5",
         "zendframework/zend-eventmanager": "~2.5",
         "zendframework/zend-filter": "~2.5",
@@ -21,6 +22,7 @@
         "zendframework/zend-loader": "~2.5",
         "zendframework/zend-servicemanager": "dev-develop",
         "zendframework/zend-stdlib": "~2.5",
+        "zendframework/zend-stratigility": "~1.0",
         "zendframework/zend-view": "~2.5"
     },
     "autoload": {
