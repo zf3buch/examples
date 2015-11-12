@@ -1,0 +1,20 @@
+{
+    "name": "zf3buch/examples",
+    "description": "Some examples to play around with Zend Framework 3",
+    "type": "project",
+    "homepage": "https://github.com/zf3buch/examples",
+    "license": "The MIT License (MIT)",
+    "authors": [
+        {
+            "name": "Ralf Eggert",
+            "email": "ralf@travello.de",
+            "homepage": "http://www.travello.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "zendframework/zend-filter": "~2.5",
+        "zendframework/zend-servicemanager": "~2.5",
+        "zendframework/zend-view": "~2.5"
+    }
+}
