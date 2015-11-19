@@ -7,7 +7,6 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Diactoros\Request;
 use Zend\Diactoros\Server;
 use Zend\Stratigility\MiddlewarePipe;
 
