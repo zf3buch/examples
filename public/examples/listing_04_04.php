@@ -18,12 +18,12 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // configure database
-$config = array(
-    'driver'  => 'pdo',
-    'dsn'     => 'mysql:dbname=vote-my-pizza;host=localhost;charset=utf8',
-    'user'    => 'vote-my-pizza',
-    'pass'    => 'geheim',
-);
+$config = [
+    'driver' => 'pdo',
+    'dsn'    => 'mysql:dbname=vote-my-pizza;host=localhost;charset=utf8',
+    'user'   => 'vote-my-pizza',
+    'pass'   => 'geheim',
+];
 
 // instantiate adapter
 $adapter = new Adapter($config);
@@ -37,7 +37,11 @@ $idIdentifier = $adapter->getPlatform()->quoteIdentifier('id');
 // build select
 $select = $sql->select();
 $select->from('pizza');
-$select->columns(array('summe' => new Expression('COUNT(' . $idIdentifier . ')')));
+$select->columns(
+    [
+        'summe' => new Expression('COUNT(' . $idIdentifier . ')')
+    ]
+);
 
 // build sql string
 $sqlString = $sql->buildSqlString($select);

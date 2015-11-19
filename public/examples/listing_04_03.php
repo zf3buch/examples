@@ -17,12 +17,12 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // configure database
-$config = array(
+$config = [
     'driver'  => 'pdo',
     'dsn'     => 'mysql:dbname=vote-my-pizza;host=localhost;charset=utf8',
     'user'    => 'vote-my-pizza',
     'pass'    => 'geheim',
-);
+];
 
 // instantiate adapter
 $adapter = new Adapter($config);
