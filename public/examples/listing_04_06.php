@@ -8,6 +8,12 @@
  */
 
 use Zend\Db\Adapter\Adapter;
+use Zend\Db\Sql\Ddl\Column\Datetime;
+use Zend\Db\Sql\Ddl\Column\Integer;
+use Zend\Db\Sql\Ddl\Column\Varchar;
+use Zend\Db\Sql\Ddl\Constraint\PrimaryKey;
+use Zend\Db\Sql\Ddl\CreateTable;
+use Zend\Db\Sql\Ddl\DropTable;
 use Zend\Db\Sql\Sql;
 
 // define application root for better file path definitions
@@ -30,14 +36,15 @@ $adapter = new Adapter($config);
 // instantiate sql object
 $sql = new Sql($adapter);
 
-// build insert
-$insert = $sql->insert();
-$insert->into('pizza');
-$insert->columns(['name']);
-$insert->values(['name' => 'Pizza Wundertüte']);
+// create new table
+$createTable = new CreateTable('pizza_temp');
+$createTable->addColumn(new Integer('id'));
+$createTable->addColumn(new Varchar('name', 64));
+$createTable->addColumn(new Datetime('date'));
+$createTable->addConstraint(new PrimaryKey('id'));
 
 // build sql string
-$sqlString = $sql->buildSqlString($insert);
+$sqlString = $sql->buildSqlString($createTable);
 
 // output sql string
 var_dump($sqlString);
@@ -45,22 +52,21 @@ var_dump($sqlString);
 // prepare and execute query
 $result = $adapter->query($sqlString)->execute();
 
-// get new id
-$id = $result->getGeneratedValue();
+// prepare and execute query
+$result = $adapter->query('SHOW TABLES')->execute();
 
-// build delete
-$delete = $sql->delete();
-$delete->from('pizza');
-$delete->where->equalTo('id', $id);
+foreach ($result as $table) {
+    var_dump($table);
+}
+
+// drop new table
+$dropTable = new DropTable('pizza_temp');
 
 // build sql string
-$sqlString = $sql->buildSqlString($delete);
+$sqlString = $sql->buildSqlString($dropTable);
 
 // output sql string
 var_dump($sqlString);
 
 // prepare and execute query
 $result = $adapter->query($sqlString)->execute();
-
-// output deleted rows
-var_dump($result->getAffectedRows());
