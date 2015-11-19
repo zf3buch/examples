@@ -13,6 +13,7 @@
         }
     ],
     "require": {
+        "zendframework/zend-db": "~2.5",
         "zendframework/zend-diactoros": "~1.0",
         "zendframework/zend-escaper": "~2.5",
         "zendframework/zend-eventmanager": "~2.5",
