@@ -2,7 +2,7 @@
 /** @var Zend\Form\Form $form */
 $form = $this->myForm;
 ?>
-<form class="form-horizontal">
+<?php echo $this->form()->openTag($form); ?>
     <div class="form-group">
         <?php echo $this->formLabel($form->get('name')); ?>
         <?php echo $this->formElement($form->get('name')); ?>
@@ -18,4 +18,4 @@ $form = $this->myForm;
             <?php echo $this->formElement($form->get('submit')); ?>
         </div>
     </div>
-</form>
+<?php echo $this->form()->closeTag();
