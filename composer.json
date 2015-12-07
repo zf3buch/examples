@@ -18,6 +18,7 @@
         "zendframework/zend-escaper": "~2.5",
         "zendframework/zend-eventmanager": "~2.5",
         "zendframework/zend-filter": "~2.5",
+        "zendframework/zend-form": "~2.5",
         "zendframework/zend-hydrator": "~1.0",
         "zendframework/zend-json": "~2.5",
         "zendframework/zend-loader": "~2.5",
