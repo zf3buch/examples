@@ -1,17 +1,21 @@
+<?php
+/** @var Zend\Form\Form $form */
+$form = $this->myForm;
+?>
 <form class="form-horizontal">
     <div class="form-group">
-        <?php echo $this->formLabel($this->myForm->get('name')); ?>
-        <?php echo $this->formElement($this->myForm->get('name')); ?>
-        <?php echo $this->formElementErrors($this->myForm->get('name')); ?>
+        <?php echo $this->formLabel($form->get('name')); ?>
+        <?php echo $this->formElement($form->get('name')); ?>
+        <?php echo $this->formElementErrors($form->get('name')); ?>
     </div>
     <div class="form-group">
-        <?php echo $this->formLabel($this->myForm->get('comment')); ?>
-        <?php echo $this->formElement($this->myForm->get('comment')); ?>
-        <?php echo $this->formElementErrors($this->myForm->get('comment')); ?>
+        <?php echo $this->formLabel($form->get('comment')); ?>
+        <?php echo $this->formElement($form->get('comment')); ?>
+        <?php echo $this->formElementErrors($form->get('comment')); ?>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <?php echo $this->formElement($this->myForm->get('submit')); ?>
+            <?php echo $this->formElement($form->get('submit')); ?>
         </div>
     </div>
 </form>
