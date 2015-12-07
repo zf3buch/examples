@@ -1,0 +1,17 @@
+<form class="form-horizontal">
+    <div class="form-group">
+        <?php echo $this->formLabel($this->myForm->get('name')); ?>
+        <?php echo $this->formElement($this->myForm->get('name')); ?>
+        <?php echo $this->formElementErrors($this->myForm->get('name')); ?>
+    </div>
+    <div class="form-group">
+        <?php echo $this->formLabel($this->myForm->get('comment')); ?>
+        <?php echo $this->formElement($this->myForm->get('comment')); ?>
+        <?php echo $this->formElementErrors($this->myForm->get('comment')); ?>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <?php echo $this->formElement($this->myForm->get('submit')); ?>
+        </div>
+    </div>
+</form>
