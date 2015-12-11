@@ -7,14 +7,23 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Validator\StaticValidator;
+
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// load file content
-$fileName    = realpath(APPLICATION_ROOT . '/templates/listing_05_05.phtml');
-$fileContent = implode('', file($fileName));
+// use Alpha validator
+$alphaResult      = StaticValidator::execute('P1ZZ4', 'Alpha');
+$creditCardResult = StaticValidator::execute(
+    '4111111111111111', 'CreditCard'
+);
+$inArrayResult    = StaticValidator::execute(
+    'blue', 'InArray', ['haystack' => ['red', 'green', 'white']]
+);
 
-echo '<pre>' . htmlspecialchars($fileContent) . '</pre>';
+var_dump($alphaResult);
+var_dump($creditCardResult);
+var_dump($inArrayResult);

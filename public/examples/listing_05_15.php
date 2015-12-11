@@ -7,19 +7,14 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Validator\ValidatorChain;
-
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// create validator chain
-$validatorChain = new ValidatorChain();
-$validatorChain->attachByName('Alpha');
-$validatorChain->attachByName('StringLength', ['min' => 6, 'max' => 32]);
-$validatorChain->attachByName('PostCode');
+// load file content
+$fileName    = realpath(APPLICATION_ROOT . '/templates/listing_05_05.phtml');
+$fileContent = implode('', file($fileName));
 
-var_dump($validatorChain->isValid('P1zz4'));
-var_dump($validatorChain->getMessages());
+echo '<pre>' . htmlspecialchars($fileContent) . '</pre>';

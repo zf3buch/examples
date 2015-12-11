@@ -8,8 +8,7 @@
  */
 
 use Zend\I18n\Validator\Alpha;
-use Zend\Validator\CreditCard;
-use Zend\Validator\InArray;
+use Zend\Validator\StringLength;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -19,15 +18,16 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // use Alpha validator
 $alphaValidator = new Alpha();
+$alphaValidator->setMessage(
+    'Der Wert "%value%" enthält nicht nur Buchstaben!'
+);
 var_dump($alphaValidator->isValid('P1ZZ4'));
 var_dump($alphaValidator->getMessages());
 
-// use CreditCard filter
-$creditCardValidator = new CreditCard();
-var_dump($creditCardValidator->isValid('4111111111111111'));
-var_dump($creditCardValidator->getMessages());
-
-// use InArray filter
-$inArrayValidator = new InArray(['haystack' => ['red', 'green', 'white']]);
-var_dump($inArrayValidator->isValid('blue'));
-var_dump($inArrayValidator->getMessages());
+// use StringLength filter
+$stringLengthValidator = new StringLength(['min' => 6, 'max' => 32]);
+$stringLengthValidator->setMessage(
+    'Der Wert muss zwischen %min% und %max% Zeichen lang sein.'
+);
+var_dump($stringLengthValidator->isValid('Pizza'));
+var_dump($stringLengthValidator->getMessages());

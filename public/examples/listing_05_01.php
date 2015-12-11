@@ -7,10 +7,10 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Form\Element\Submit;
-use Zend\Form\Element\Text;
-use Zend\Form\Element\Textarea;
-use Zend\Form\Form;
+use Zend\Filter\Compress;
+use Zend\Filter\StringToLower;
+use Zend\Filter\Word\DashToCamelCase;
+use Zend\I18n\Filter\Alpha;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -18,31 +18,18 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// instantiate text element
-$name = new Text('name');
-$name->setLabel('Your Name');
-$name->setAttribute('class', 'my-class');
-$name->setAttribute('maxlength', 64);
+// use Alpha filter
+$alphaFilter = new Alpha();
+$alphaResult = $alphaFilter->filter('P1ZZ4');
 
-// instantiate text area
-$comment = new Textarea('comment');
-$comment->setLabel('Your Comment');
-$comment->setAttribute('class', 'another-class');
-$comment->setAttributes(['rows' => 4, 'cols' => '64']);
+// use StringToLower filter
+$stringToLowerFilter = new StringToLower();
+$stringToLowerResult = $stringToLowerFilter->filter('PIZZA');
 
-// instantiate submit button
-$submit = new Submit('submit');
-$submit->setValue('Save Comment');
-$submit->setAttribute('id', 'submit');
+// use DashToCamelCase filter
+$dashToCamelCaseFilter = new DashToCamelCase();
+$dashToCamelCaseResult = $dashToCamelCaseFilter->filter('pizza-service');
 
-// instantiate form and add elements
-$form = new Form();
-$form->setAttribute('action', '/form/sent');
-$form->add($name);
-$form->add($comment);
-$form->add($submit);
-
-// instantiate form view helper directly
-var_dump($form->getAttributes());
-var_dump($form->getElements());
-    
+var_dump($alphaResult);
+var_dump($stringToLowerResult);
+var_dump($dashToCamelCaseResult);
