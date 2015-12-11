@@ -7,7 +7,6 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Filter\Compress;
 use Zend\Filter\FilterChain;
 
 // define application root for better file path definitions
