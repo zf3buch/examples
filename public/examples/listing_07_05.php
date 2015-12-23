@@ -7,10 +7,10 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter;
+use Zend\Authentication\AuthenticationService;
+use Zend\Crypt\Password\Bcrypt;
 use Zend\Db\Adapter\Adapter;
-use Zend\Db\TableGateway\Feature\FeatureSet;
-use Zend\Db\TableGateway\Feature\MasterSlaveFeature;
-use Zend\Db\TableGateway\TableGateway;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -26,13 +26,21 @@ $config = [
     'pass'   => 'geheim',
 ];
 
-// instantiate adapter
-$masterAdapter = new Adapter($config);
-$slaveAdapter  = new Adapter($config);
+// instantiate database adapter
+$dbAdapter = new Adapter($config);
 
-// instantiate feature set
-$featureSet = new FeatureSet();
-$featureSet->addFeature(new MasterSlaveFeature($slaveAdapter));
+// instantiate authentication adapter
+$authAdapter = new CallbackCheckAdapter(
+    $dbAdapter,
+    'user',
+    'email',
+    'password',
+    function ($securePass, $password) {
+        $bcrypt        = new Bcrypt();
+        $authenticated = $bcrypt->verify($password, $securePass);
 
-// instantiate table gateway instance
-$table = new TableGateway('pizza', $masterAdapter, $featureSet);
+        return $authenticated;
+    }
+);
+
+var_dump($authAdapter);

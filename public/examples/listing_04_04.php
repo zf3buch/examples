@@ -20,8 +20,8 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 // configure database
 $config = [
     'driver' => 'pdo',
-    'dsn'    => 'mysql:dbname=vote-my-pizza;host=localhost;charset=utf8',
-    'user'   => 'vote-my-pizza',
+    'dsn'    => 'mysql:dbname=examples;host=localhost;charset=utf8',
+    'user'   => 'example-user',
     'pass'   => 'geheim',
 ];
 
