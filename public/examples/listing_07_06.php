@@ -9,7 +9,6 @@
 
 use Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter;
 use Zend\Authentication\AuthenticationService;
-use Zend\Crypt\Password\Bcrypt;
 use Zend\Db\Adapter\Adapter;
 
 // define application root for better file path definitions
@@ -35,11 +34,8 @@ $authAdapter = new CallbackCheckAdapter(
     'user',
     'email',
     'password',
-    function ($securePass, $password) {
-        $bcrypt        = new Bcrypt();
-        $authenticated = $bcrypt->verify($password, $securePass);
-
-        return $authenticated;
+    function ($hash, $password) {
+        return password_verify($password, $hash);
     }
 );
 
