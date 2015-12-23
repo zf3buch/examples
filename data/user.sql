@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `email`, `password`, `role`, `first_name`, `last_name`) VALUES
 (1, 'kunde@vote-my-pizza.de', '$2y$10$LgI03AFI.lu5lB1t4Rfpy.ipppiAE79Xz1Dk6pi1RVIAW2./5at2.', 'customer', 'Kuno', 'Kunde'),
-(2, 'mitarbeiter@vote-my-pizza.de', '$2y$10$hSdZnVzQFQ/WV9c59Z.J5eD2T5ysL5EklRCyi67VhSb25mqG7oIKq', 'staff', 'Manfred', 'Mitarbeiter'),
-(3, 'admin@vote-my-pizza.de', '$2y$10$MNLzqwHkE4HNbjWIiF7i3e8aKvrBsPm8CRUF3aFbT9f1nAMeOmPDO', 'admin', 'Arno', 'Admin');
+(2, 'mitarbeiter@vote-my-pizza.de', '$2y$10$hSdZnVzQFQ/WV9c59Z.J5eD2T5ysL5EklRCyi67VhSb25mqG7oIKq', 'staff', 'Michael', 'Mitarbeiter'),
+(3, 'admin@vote-my-pizza.de', '$2y$10$MNLzqwHkE4HNbjWIiF7i3e8aKvrBsPm8CRUF3aFbT9f1nAMeOmPDO', 'admin', 'Adonis', 'Admin');
 
 SET FOREIGN_KEY_CHECKS=1;
 
