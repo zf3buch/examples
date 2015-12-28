@@ -15,6 +15,7 @@
     "require": {
         "zendframework/zend-authentication": "~2.5",
         "zendframework/zend-crypt": "~2.5",
+        "zendframework/zend-config": "~2.5",
         "zendframework/zend-db": "~2.5",
         "zendframework/zend-diactoros": "~1.0",
         "zendframework/zend-escaper": "~2.5",
