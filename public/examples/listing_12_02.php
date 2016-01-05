@@ -20,11 +20,7 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 $inputData = [
     'id'        => '1',
     'full_name' => 'Theo Tester',
-    'address'   => [
-        'Am Testen 123',
-        '12345',
-        'Testen',
-    ],
+    'address'   => ['Am Testen 123', '12345', 'Testen'],
 ];
 
 // instantiate customer entity
