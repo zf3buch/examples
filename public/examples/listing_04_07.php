@@ -9,6 +9,7 @@
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -39,5 +40,5 @@ $rows = $table->selectWith($select);
 
 // output rows
 foreach ($rows as $row) {
-    var_dump($row);
+    Debug::dump($row);
 }

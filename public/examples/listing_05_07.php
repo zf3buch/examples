@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\I18n\Validator\Alpha;
 use Zend\Validator\StringLength;
 
@@ -21,13 +22,13 @@ $alphaValidator = new Alpha();
 $alphaValidator->setMessage(
     'Der Wert "%value%" enthält nicht nur Buchstaben!'
 );
-var_dump($alphaValidator->isValid('P1ZZ4'));
-var_dump($alphaValidator->getMessages());
+Debug::dump($alphaValidator->isValid('P1ZZ4'));
+Debug::dump($alphaValidator->getMessages());
 
 // use StringLength filter
 $stringLengthValidator = new StringLength(['min' => 6, 'max' => 32]);
 $stringLengthValidator->setMessage(
     'Der Wert muss zwischen %min% und %max% Zeichen lang sein.'
 );
-var_dump($stringLengthValidator->isValid('Pizza'));
-var_dump($stringLengthValidator->getMessages());
+Debug::dump($stringLengthValidator->isValid('Pizza'));
+Debug::dump($stringLengthValidator->getMessages());

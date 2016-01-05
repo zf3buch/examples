@@ -15,6 +15,7 @@ use Zend\Db\Sql\Ddl\Constraint\PrimaryKey;
 use Zend\Db\Sql\Ddl\CreateTable;
 use Zend\Db\Sql\Ddl\DropTable;
 use Zend\Db\Sql\Sql;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -47,7 +48,7 @@ $createTable->addConstraint(new PrimaryKey('id'));
 $sqlString = $sql->buildSqlString($createTable);
 
 // output sql string
-var_dump($sqlString);
+Debug::dump($sqlString);
 
 // prepare and execute query
 $result = $adapter->query($sqlString)->execute();
@@ -56,7 +57,7 @@ $result = $adapter->query($sqlString)->execute();
 $result = $adapter->query('SHOW TABLES')->execute();
 
 foreach ($result as $table) {
-    var_dump($table);
+    Debug::dump($table);
 }
 
 // drop new table
@@ -66,7 +67,7 @@ $dropTable = new DropTable('pizza_temp');
 $sqlString = $sql->buildSqlString($dropTable);
 
 // output sql string
-var_dump($sqlString);
+Debug::dump($sqlString);
 
 // prepare and execute query
 $result = $adapter->query($sqlString)->execute();

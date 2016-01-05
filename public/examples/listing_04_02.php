@@ -8,6 +8,7 @@
  */
 
 use Zend\Db\Adapter\Adapter;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -36,4 +37,4 @@ $query = $adapter->query($sql);
 $result = $query->execute([1]);
 
 // output result
-var_dump($result->current());
+Debug::dump($result->current());

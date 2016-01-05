@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Session\Container;
 
 // define application root for better file path definitions
@@ -27,5 +28,5 @@ $numberList[] = mt_rand(1000, 9999);
 
 $random->offsetSet('numberList', $numberList);
 
-var_dump($counter->number);
-var_dump($random->numberList);
+Debug::dump($counter->number);
+Debug::dump($random->numberList);

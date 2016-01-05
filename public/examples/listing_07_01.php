@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Permissions\Rbac\Rbac;
 use Zend\Permissions\Rbac\Role;
 
@@ -36,4 +37,4 @@ $rbac->addRole($guestRole);
 $rbac->addRole($editorRole);
 $rbac->addRole($adminRole);
 
-var_dump($rbac->getRole('admin'));
+Debug::dump($rbac->getRole('admin'));

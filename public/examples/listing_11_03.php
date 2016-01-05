@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Navigation\Navigation;
 
 // define application root for better file path definitions
@@ -45,4 +46,4 @@ $pages = [
 $navigation = new Navigation($pages);
 
 // output some data
-var_dump($navigation->getPages());
+Debug::dump($navigation->getPages());

@@ -10,6 +10,7 @@
 use Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter;
 use Zend\Authentication\AuthenticationService;
 use Zend\Db\Adapter\Adapter;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -48,9 +49,9 @@ $authAdapter->setCredential('test');
 
 $result = $authService->authenticate($authAdapter);
 
-var_dump($result->isValid());
-var_dump($result->getIdentity());
-var_dump($result->getMessages());
+Debug::dump($result->isValid());
+Debug::dump($result->getIdentity());
+Debug::dump($result->getMessages());
 
 echo "<hr>";
 
@@ -60,9 +61,9 @@ $authAdapter->setCredential('test');
 
 $result = $authService->authenticate($authAdapter);
 
-var_dump($result->isValid());
-var_dump($result->getIdentity());
-var_dump($result->getMessages());
+Debug::dump($result->isValid());
+Debug::dump($result->getIdentity());
+Debug::dump($result->getMessages());
 
 echo "<hr>";
 
@@ -72,21 +73,21 @@ $authAdapter->setCredential('test123');
 
 $result = $authService->authenticate($authAdapter);
 
-var_dump($result->isValid());
-var_dump($result->getIdentity());
-var_dump($result->getMessages());
+Debug::dump($result->isValid());
+Debug::dump($result->getIdentity());
+Debug::dump($result->getMessages());
 
 echo "<hr>";
 
 // check authentication service
-var_dump($authService->hasIdentity());
-var_dump($authService->getIdentity());
+Debug::dump($authService->hasIdentity());
+Debug::dump($authService->getIdentity());
 
 echo "<hr>";
 
 // clear identity
 $authService->clearIdentity();
 
-var_dump($authService->hasIdentity());
-var_dump($authService->getIdentity());
+Debug::dump($authService->hasIdentity());
+Debug::dump($authService->getIdentity());
 

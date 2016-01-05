@@ -9,6 +9,7 @@
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Sql;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -40,7 +41,7 @@ $insert->values(['name' => 'Pizza Wundertüte']);
 $sqlString = $sql->buildSqlString($insert);
 
 // output sql string
-var_dump($sqlString);
+Debug::dump($sqlString);
 
 // prepare and execute query
 $result = $adapter->query($sqlString)->execute();
@@ -57,10 +58,10 @@ $delete->where->equalTo('id', $id);
 $sqlString = $sql->buildSqlString($delete);
 
 // output sql string
-var_dump($sqlString);
+Debug::dump($sqlString);
 
 // prepare and execute query
 $result = $adapter->query($sqlString)->execute();
 
 // output deleted rows
-var_dump($result->getAffectedRows());
+Debug::dump($result->getAffectedRows());

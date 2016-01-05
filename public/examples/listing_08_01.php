@@ -8,6 +8,7 @@
  */
 
 use Zend\Config\Factory;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -20,4 +21,4 @@ $config = Factory::fromFile(
     APPLICATION_ROOT . '/config/autoload/session.global.php'
 );
 
-var_dump($config);
+Debug::dump($config);

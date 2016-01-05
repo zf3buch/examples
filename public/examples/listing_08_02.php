@@ -8,6 +8,7 @@
  */
 
 use Zend\Config\Factory;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -21,11 +22,11 @@ $mergedConfig = Factory::fromFiles([
     APPLICATION_ROOT . '/config/autoload/some.config.ini'
 ]);
 
-var_dump($mergedConfig);
+Debug::dump($mergedConfig);
 
 // Load config data with glob
 $mergedConfig = Factory::fromFiles(
     glob(APPLICATION_ROOT . '/config/autoload/*')
 );
 
-var_dump($mergedConfig);
+Debug::dump($mergedConfig);

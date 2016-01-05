@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Filter\Compress;
 use Zend\Filter\StaticFilter;
 
@@ -23,6 +24,6 @@ $dashToCamelCaseResult = StaticFilter::execute(
     'pizza-service', 'Word\DashToCamelCase'
 );
 
-var_dump($alphaResult);
-var_dump($stringToLowerResult);
-var_dump($dashToCamelCaseResult);
+Debug::dump($alphaResult);
+Debug::dump($stringToLowerResult);
+Debug::dump($dashToCamelCaseResult);

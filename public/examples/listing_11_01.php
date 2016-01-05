@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\Paginator\Paginator;
 
@@ -25,6 +26,6 @@ $paginator->setCurrentPageNumber(mt_rand(1, 40));
 $paginator->setItemCountPerPage(20);
 
 // output some data
-var_dump($paginator->getCurrentItems());
-var_dump($paginator->getTotalItemCount());
-var_dump($paginator->getPages());
+Debug::dump($paginator->getCurrentItems());
+Debug::dump($paginator->getTotalItemCount());
+Debug::dump($paginator->getPages());

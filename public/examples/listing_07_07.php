@@ -10,6 +10,7 @@
 use Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter;
 use Zend\Authentication\AuthenticationService;
 use Zend\Db\Adapter\Adapter;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -56,5 +57,5 @@ $user = $authAdapter->getResultRowObject(null, ['password']);
 $authService->getStorage()->write($user);
 
 // check identity
-var_dump($authService->hasIdentity());
-var_dump($authService->getIdentity());
+Debug::dump($authService->hasIdentity());
+Debug::dump($authService->getIdentity());

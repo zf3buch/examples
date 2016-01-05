@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\InputFilter\InputFilter;
 
 // define application root for better file path definitions
@@ -54,4 +55,4 @@ $inputFilter->add([
     ],
 ]);
 
-var_dump($inputFilter);
+Debug::dump($inputFilter);

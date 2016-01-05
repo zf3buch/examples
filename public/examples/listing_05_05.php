@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Validator\StaticValidator;
 
 // define application root for better file path definitions
@@ -24,6 +25,6 @@ $inArrayResult    = StaticValidator::execute(
     'blue', 'InArray', ['haystack' => ['red', 'green', 'white']]
 );
 
-var_dump($alphaResult);
-var_dump($creditCardResult);
-var_dump($inArrayResult);
+Debug::dump($alphaResult);
+Debug::dump($creditCardResult);
+Debug::dump($inArrayResult);

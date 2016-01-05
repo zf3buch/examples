@@ -9,6 +9,7 @@
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Sql;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -39,10 +40,10 @@ $select->where->equalTo('name', 'Pizza Mista');
 $sqlString = $sql->buildSqlString($select);
 
 // output sql string
-var_dump($sqlString);
+Debug::dump($sqlString);
 
 // prepare and execute query
 $result = $adapter->query($sqlString)->execute();
 
 // output result
-var_dump($result->current());
+Debug::dump($result->current());

@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Db\Adapter\Adapter;
 
 // define application root for better file path definitions
@@ -27,5 +28,5 @@ $config = [
 $adapter = new Adapter($config);
 
 // test adapter
-var_dump($adapter->getPlatform()->getName());
-var_dump($adapter->getCurrentSchema());
+Debug::dump($adapter->getPlatform()->getName());
+Debug::dump($adapter->getCurrentSchema());

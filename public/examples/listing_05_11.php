@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
@@ -43,6 +44,6 @@ $form->add($comment);
 $form->add($submit);
 
 // instantiate form view helper directly
-var_dump($form->getAttributes());
-var_dump($form->getElements());
+Debug::dump($form->getAttributes());
+Debug::dump($form->getElements());
 

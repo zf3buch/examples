@@ -9,7 +9,7 @@
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\TableGateway\TableGateway;
-use Zend\Paginator\Adapter\ArrayAdapter;
+use Zend\Debug\Debug;
 use Zend\Paginator\Adapter\DbTableGateway;
 use Zend\Paginator\Paginator;
 
@@ -45,9 +45,9 @@ for ($page = 1; $page <= 6; $page++) {
     $paginator->setCurrentPageNumber($page);
 
     echo "<hr>";
-    var_dump('Page ' . $page);
+    Debug::dump('Page ' . $page);
 
     foreach ($paginator->getCurrentItems() as $currentItem) {
-        var_dump($currentItem);
+        Debug::dump($currentItem);
     }
 }

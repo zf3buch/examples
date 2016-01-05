@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Validator\ValidatorChain;
 
 // define application root for better file path definitions
@@ -21,5 +22,5 @@ $validatorChain->attachByName('Alpha');
 $validatorChain->attachByName('StringLength', ['min' => 6, 'max' => 32]);
 $validatorChain->attachByName('PostCode');
 
-var_dump($validatorChain->isValid('P1zz4'));
-var_dump($validatorChain->getMessages());
+Debug::dump($validatorChain->isValid('P1zz4'));
+Debug::dump($validatorChain->getMessages());

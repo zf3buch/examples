@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Diactoros\Request;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Uri;
@@ -30,7 +31,7 @@ $request = new Request(
     ]
 );
 
-var_dump($request);
+Debug::dump($request);
 
 // instantiate client for demonstration
 //$client = new Client();
@@ -44,6 +45,6 @@ $statusCode = $response->getStatusCode();
 $headers    = $response->getHeaders();
 $body       = $response->getBody();
 
-var_dump($statusCode);
-var_dump($headers);
-var_dump($body);
+Debug::dump($statusCode);
+Debug::dump($headers);
+Debug::dump($body);

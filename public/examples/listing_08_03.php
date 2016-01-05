@@ -8,6 +8,7 @@
  */
 
 use Zend\Config\Factory;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -27,4 +28,4 @@ $cacheFile = APPLICATION_ROOT . '/data/cache/config.json';
 // Write config data to file
 Factory::toFile($cacheFile, $mergedConfig);
 
-var_dump(file_exists($cacheFile));
+Debug::dump(file_exists($cacheFile));

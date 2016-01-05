@@ -19,15 +19,15 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // use Alpha validator
 $alphaValidator = new Alpha();
-var_dump($alphaValidator->isValid('P1ZZ4'));
-var_dump($alphaValidator->getMessages());
+Debug::dump($alphaValidator->isValid('P1ZZ4'));
+Debug::dump($alphaValidator->getMessages());
 
 // use CreditCard filter
 $creditCardValidator = new CreditCard();
-var_dump($creditCardValidator->isValid('4111111111111111'));
-var_dump($creditCardValidator->getMessages());
+Debug::dump($creditCardValidator->isValid('4111111111111111'));
+Debug::dump($creditCardValidator->getMessages());
 
 // use InArray filter
 $inArrayValidator = new InArray(['haystack' => ['red', 'green', 'white']]);
-var_dump($inArrayValidator->isValid('blue'));
-var_dump($inArrayValidator->getMessages());
+Debug::dump($inArrayValidator->isValid('blue'));
+Debug::dump($inArrayValidator->getMessages());

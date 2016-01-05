@@ -9,6 +9,7 @@
 
 use Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter;
 use Zend\Db\Adapter\Adapter;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -38,4 +39,4 @@ $authAdapter = new CallbackCheckAdapter(
     }
 );
 
-var_dump($authAdapter);
+Debug::dump($authAdapter);

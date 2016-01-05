@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\InputFilter\InputFilter;
 
 // define application root for better file path definitions
@@ -62,9 +63,9 @@ $invalidInputData = [
 $inputFilter->setData($invalidInputData);
 $result = $inputFilter->isValid();
 
-var_dump($result);
-var_dump($inputFilter->getValues());
-var_dump($inputFilter->getMessages());
+Debug::dump($result);
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());
 
 $validInputData = [
     'email' => '<b>ralf@travello.com</b>',
@@ -74,6 +75,6 @@ $validInputData = [
 $inputFilter->setData($validInputData);
 $result = $inputFilter->isValid();
 
-var_dump($result);
-var_dump($inputFilter->getValues());
-var_dump($inputFilter->getMessages());
+Debug::dump($result);
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());

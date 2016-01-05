@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\I18n\Translator\Translator;
 
 // define application root for better file path definitions
@@ -36,14 +37,14 @@ $translator->addTranslationFilePattern(
 
 // Set locale and output texts
 $translator->setLocale('de_DE');
-var_dump($translator->translate('message_saving_successful'));
-var_dump($translator->translate('message_saving_failed'));
-var_dump($translator->translate('label_firstname'));
-var_dump($translator->translate('label_lastname'));
+Debug::dump($translator->translate('message_saving_successful'));
+Debug::dump($translator->translate('message_saving_failed'));
+Debug::dump($translator->translate('label_firstname'));
+Debug::dump($translator->translate('label_lastname'));
 
 // Change locale and output texts
 $translator->setLocale('en_US');
-var_dump($translator->translate('message_saving_successful'));
-var_dump($translator->translate('message_saving_failed'));
-var_dump($translator->translate('label_firstname'));
-var_dump($translator->translate('label_lastname'));
+Debug::dump($translator->translate('message_saving_successful'));
+Debug::dump($translator->translate('message_saving_failed'));
+Debug::dump($translator->translate('label_firstname'));
+Debug::dump($translator->translate('label_lastname'));

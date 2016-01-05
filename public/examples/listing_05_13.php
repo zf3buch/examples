@@ -7,15 +7,14 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
 use Zend\Form\Factory;
-use Zend\Form\Fieldset;
 use Zend\Form\Form;
 use Zend\Form\FormElementManager;
 use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ServiceManager;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -47,10 +46,8 @@ $form->add($name);
 $form->add($comment);
 $form->add($submit);
 
-var_dump($form->getAttributes());
-echo "<br>";
-var_dump($form->getElements());
-echo "<br>";
+Debug::dump($form->getAttributes());
+Debug::dump($form->getElements());
 
 // define configuration array
 $formArray = [
@@ -109,7 +106,5 @@ $factory->setFormElementManager(
 // build form with configuration array
 $form = $factory->createForm($formArray);
 
-var_dump($form->getAttributes());
-echo "<br>";
-var_dump($form->getElements());
-echo "<br>";
+Debug::dump($form->getAttributes());
+Debug::dump($form->getElements());

@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Permissions\Rbac\Rbac;
 use Zend\Permissions\Rbac\Role;
 
@@ -37,20 +38,20 @@ $rbac->addRole($editorRole);
 $rbac->addRole($adminRole);
 
 // ask rights for guest role
-var_dump($rbac->isGranted('guest', 'article.show'));
-var_dump($rbac->isGranted('guest', 'article.edit'));
-var_dump($rbac->isGranted('guest', 'article.delete'));
+Debug::dump($rbac->isGranted('guest', 'article.show'));
+Debug::dump($rbac->isGranted('guest', 'article.edit'));
+Debug::dump($rbac->isGranted('guest', 'article.delete'));
 
 echo "<hr>";
 
 // ask rights for editor role
-var_dump($rbac->isGranted('editor', 'article.show'));
-var_dump($rbac->isGranted('editor', 'article.edit'));
-var_dump($rbac->isGranted('editor', 'article.delete'));
+Debug::dump($rbac->isGranted('editor', 'article.show'));
+Debug::dump($rbac->isGranted('editor', 'article.edit'));
+Debug::dump($rbac->isGranted('editor', 'article.delete'));
 
 echo "<hr>";
 
 // ask rights for admin role
-var_dump($rbac->isGranted('admin', 'article.show'));
-var_dump($rbac->isGranted('admin', 'article.edit'));
-var_dump($rbac->isGranted('admin', 'article.delete'));
+Debug::dump($rbac->isGranted('admin', 'article.show'));
+Debug::dump($rbac->isGranted('admin', 'article.edit'));
+Debug::dump($rbac->isGranted('admin', 'article.delete'));

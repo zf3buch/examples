@@ -8,6 +8,7 @@
  */
 
 use Zend\Config\Config;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -19,5 +20,5 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 $config      = new Config(['foo' => 'bar'], true);
 $config->bar = 'foo';
 
-var_dump($config);
-var_dump($config->toArray());
+Debug::dump($config);
+Debug::dump($config->toArray());

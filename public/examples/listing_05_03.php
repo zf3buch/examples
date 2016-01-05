@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Filter\FilterChain;
 
 // define application root for better file path definitions
@@ -23,4 +24,4 @@ $filterChain->attachByName('StringToLower');
 
 $result = $filterChain->filter('Pizza123Service');
 
-var_dump($result);
+Debug::dump($result);

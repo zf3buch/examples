@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\ServiceManager\ServiceManager;
 
@@ -30,5 +31,5 @@ $serviceManager = new ServiceManager(
 $customerForm    = $serviceManager->get(Customer\Form::class);
 $customerService = $serviceManager->get(Customer\Service::class);
 
-var_dump($customerForm);
-var_dump($customerService);
+Debug::dump($customerForm);
+Debug::dump($customerService);

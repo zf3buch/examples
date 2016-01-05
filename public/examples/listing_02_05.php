@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Diactoros\ServerRequestFactory;
 
 // define application root for better file path definitions
@@ -26,7 +27,7 @@ $cookieParams  = $request->getCookieParams();
 $uploadedFiles = $request->getUploadedFiles();
 $method        = $request->getMethod();
 
-var_dump($queryParams);
-var_dump($cookieParams);
-var_dump($uploadedFiles);
-var_dump($method);
+Debug::dump($queryParams);
+Debug::dump($cookieParams);
+Debug::dump($uploadedFiles);
+Debug::dump($method);

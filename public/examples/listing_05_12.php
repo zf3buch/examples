@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
@@ -48,5 +49,5 @@ $form->setAttribute('action', '/form/sent');
 $form->add($fieldset);
 $form->add($submit);
 
-var_dump($form->getFieldsets());
-var_dump($form->getElements());
+Debug::dump($form->getFieldsets());
+Debug::dump($form->getElements());
