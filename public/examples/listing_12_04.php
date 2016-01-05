@@ -20,10 +20,9 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // setup data
 $inputData = [
-    'id'         => '1',
-    'first_name' => 'Theo',
-    'last_name'  => 'Tester',
-    'address'    =>
+    'id'        => '1',
+    'full_name' => 'Theo Tester',
+    'address'   =>
         'a:3:{i:0;s:13:"Am Testen 123";i:1;s:5:"12345";i:2;s:6:"Testen";}'
 ];
 

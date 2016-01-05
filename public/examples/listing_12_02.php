@@ -18,10 +18,9 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // setup data
 $inputData = [
-    'id'         => '1',
-    'first_name' => 'Theo',
-    'last_name'  => 'Tester',
-    'address'    => [
+    'id'        => '1',
+    'full_name' => 'Theo Tester',
+    'address'   => [
         'Am Testen 123',
         '12345',
         'Testen',
@@ -31,16 +30,14 @@ $inputData = [
 // instantiate customer entity
 $customer = new Entity();
 $customer->setId($inputData['id']);
-$customer->setFirstName($inputData['first_name']);
-$customer->setLastName($inputData['last_name']);
+$customer->setFullName($inputData['full_name']);
 $customer->setAddress($inputData['address']);
 
 // initialize output data
 $outputData = [
-    'id'         => $customer->getId(),
-    'first_name' => $customer->getFirstName(),
-    'last_name'  => $customer->getLastName(),
-    'address'    => $customer->getAddress(),
+    'id'        => $customer->getId(),
+    'full_name' => $customer->getFullName(),
+    'address'   => $customer->getAddress(),
 ];
 
 Debug::dump($customer);

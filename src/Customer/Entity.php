@@ -24,12 +24,7 @@ class Entity
     /**
      * @var string
      */
-    private $firstName;
-
-    /**
-     * @var string
-     */
-    private $lastName;
+    private $fullName;
 
     /**
      * @var array
@@ -55,33 +50,17 @@ class Entity
     /**
      * @return string
      */
-    public function getFirstName()
+    public function getFullName()
     {
-        return $this->firstName;
+        return $this->fullName;
     }
 
     /**
-     * @param string $firstName
+     * @param string $fullName
      */
-    public function setFirstName($firstName)
+    public function setFullName($fullName)
     {
-        $this->firstName = $firstName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * @param string $lastName
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
+        $this->fullName = $fullName;
     }
 
     /**
@@ -99,5 +78,4 @@ class Entity
     {
         $this->address = $address;
     }
-
 }
