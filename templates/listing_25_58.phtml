@@ -1,0 +1,5 @@
+<h1><?= $this->headline; ?></h1>
+<p>This is a text for you, <?= $this->name; ?></p>
+<?= $this->htmlList($this->list); ?>
+<h2>Your Gravatar</h2>
+<?= $this->gravatar('luigi@luigis-pizza.de', ['img_size' => 180]); ?>

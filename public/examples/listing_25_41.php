@@ -13,8 +13,11 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
+
 // load file content
-$fileName    = realpath(APPLICATION_ROOT . '/templates/listing_05_15.phtml');
+$fileName = realpath(
+    APPLICATION_ROOT . '/templates/listing_25_41.phtml'
+);
 $fileContent = implode('', file($fileName));
 
 echo '<pre>' . htmlspecialchars($fileContent) . '</pre>';

@@ -21,7 +21,7 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 $viewModel = new ViewModel(['headline' => 'Happy welcome!']);
 $viewModel->setVariable('name', 'Luigi');
 $viewModel->setVariables(['list' => ['Foo', 'Bar', 'Baz']]);
-$viewModel->setTemplate('listing_03_04');
+$viewModel->setTemplate('listing_25_58');
 
 // prepare resolve with path stack
 $resolver = new TemplatePathStack(

@@ -7,6 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
 use Zend\I18n\Validator\Alpha;
 use Zend\Validator\CreditCard;
 use Zend\Validator\InArray;
