@@ -25,7 +25,11 @@ $paginator = new Paginator(new ArrayAdapter($numbers));
 $paginator->setCurrentPageNumber(mt_rand(1, 40));
 $paginator->setItemCountPerPage(20);
 
+$currentItems = $paginator->getCurrentItems();
+$totalItemCount = $paginator->getTotalItemCount();
+$pages = $paginator->getPages();
+
 // output some data
-Debug::dump($paginator->getCurrentItems());
-Debug::dump($paginator->getTotalItemCount());
-Debug::dump($paginator->getPages());
+Debug::dump($currentItems, 'Current items');
+Debug::dump($totalItemCount, 'Total item count');
+Debug::dump($pages, 'Paginator pages');

@@ -7,7 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Customer\Entity;
+use Customer\CustomerEntity;
 use Zend\Debug\Debug;
 
 // define application root for better file path definitions
@@ -24,7 +24,7 @@ $inputData = [
 ];
 
 // instantiate customer entity
-$customer = new Entity();
+$customer = new CustomerEntity();
 $customer->setId($inputData['id']);
 $customer->setFullName($inputData['full_name']);
 $customer->setAddress($inputData['address']);
@@ -36,5 +36,5 @@ $outputData = [
     'address'   => $customer->getAddress(),
 ];
 
-Debug::dump($customer);
-Debug::dump($outputData);
+Debug::dump($customer, 'Customer entity');
+Debug::dump($outputData, 'Output data');

@@ -40,5 +40,5 @@ $rows = $table->selectWith($select);
 
 // output rows
 foreach ($rows as $row) {
-    Debug::dump($row);
+    Debug::dump($row, 'Pizza dataset');
 }

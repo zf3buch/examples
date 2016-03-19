@@ -28,5 +28,5 @@ $numberList[] = mt_rand(1000, 9999);
 
 $random->offsetSet('numberList', $numberList);
 
-Debug::dump($counter->number);
-Debug::dump($random->numberList);
+Debug::dump($counter->number, 'Counter number');
+Debug::dump($random->numberList, 'Random number list');

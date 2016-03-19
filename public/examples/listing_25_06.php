@@ -28,4 +28,6 @@ $cacheFile = APPLICATION_ROOT . '/data/cache/config.json';
 // Write config data to file
 Factory::toFile($cacheFile, $mergedConfig);
 
-Debug::dump(file_exists($cacheFile));
+$fileCheck = file_exists($cacheFile);
+
+Debug::dump($fileCheck, 'File check');

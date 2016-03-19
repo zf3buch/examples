@@ -25,6 +25,6 @@ $inArrayResult    = StaticValidator::execute(
     'blue', 'InArray', ['haystack' => ['red', 'green', 'white']]
 );
 
-Debug::dump($alphaResult);
-Debug::dump($creditCardResult);
-Debug::dump($inArrayResult);
+Debug::dump($alphaResult, 'Alpha result');
+Debug::dump($creditCardResult, 'CreditCard result');
+Debug::dump($inArrayResult, 'InArray result');

@@ -20,15 +20,24 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // use Alpha validator
 $alphaValidator = new Alpha();
-Debug::dump($alphaValidator->isValid('P1ZZ4'));
-Debug::dump($alphaValidator->getMessages());
+$alphaResult    = $alphaValidator->isValid('P1ZZ4');
+$alphaMessages  = $alphaValidator->getMessages();
+
+Debug::dump($alphaResult, 'Alpha result');
+Debug::dump($alphaMessages, 'Alpha messages');
 
 // use CreditCard filter
 $creditCardValidator = new CreditCard();
-Debug::dump($creditCardValidator->isValid('4111111111111111'));
-Debug::dump($creditCardValidator->getMessages());
+$creditCardResult    = $creditCardValidator->isValid('4111111111111111');
+$creditCardMessages  = $creditCardValidator->getMessages();
+
+Debug::dump($creditCardResult, 'CreditCard result');
+Debug::dump($creditCardMessages, 'CreditCard messages');
 
 // use InArray filter
 $inArrayValidator = new InArray(['haystack' => ['red', 'green', 'white']]);
-Debug::dump($inArrayValidator->isValid('blue'));
-Debug::dump($inArrayValidator->getMessages());
+$inArrayResult    = $inArrayValidator->isValid('blue');
+$inArrayMessages  = $inArrayValidator->getMessages();
+
+Debug::dump($inArrayResult, 'InArray result');
+Debug::dump($inArrayMessages, 'InArray messages');

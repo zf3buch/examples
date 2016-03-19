@@ -22,5 +22,8 @@ $validatorChain->attachByName('Alpha');
 $validatorChain->attachByName('StringLength', ['min' => 6, 'max' => 32]);
 $validatorChain->attachByName('PostCode');
 
-Debug::dump($validatorChain->isValid('P1zz4'));
-Debug::dump($validatorChain->getMessages());
+$result   = $validatorChain->isValid('P1zz4');
+$messages = $validatorChain->getMessages();
+
+Debug::dump($result, 'Validator chain result');
+Debug::dump($messages, 'Validator chain messages');

@@ -14,7 +14,7 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // load file content
-$fileName = realpath(APPLICATION_ROOT . '/src/Customer/ServiceFactory.php');
+$fileName = realpath(APPLICATION_ROOT . '/src/Customer/CustomerServiceFactory.php');
 $fileContent = implode('', file($fileName));
 
 echo '<pre>' . htmlspecialchars($fileContent) . '</pre>';

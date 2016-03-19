@@ -7,8 +7,8 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Debug\Debug;
 use Zend\Db\Adapter\Adapter;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -18,15 +18,18 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // configure database
 $config = [
-    'driver'  => 'pdo',
-    'dsn'     => 'mysql:dbname=examples;host=localhost;charset=utf8',
-    'user'    => 'example-user',
-    'pass'    => 'geheim',
+    'driver' => 'pdo',
+    'dsn'    => 'mysql:dbname=examples;host=localhost;charset=utf8',
+    'user'   => 'example-user',
+    'pass'   => 'geheim',
 ];
 
 // instantiate adapter
 $adapter = new Adapter($config);
 
 // test adapter
-Debug::dump($adapter->getPlatform()->getName());
-Debug::dump($adapter->getCurrentSchema());
+$platformName  = $adapter->getPlatform()->getName();
+$currentSchema = $adapter->getCurrentSchema();
+
+Debug::dump($platformName, 'Platform name');
+Debug::dump($currentSchema, 'Current table schema');

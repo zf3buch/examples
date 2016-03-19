@@ -36,5 +36,7 @@ $query = $adapter->query($sql);
 // execute query
 $result = $query->execute([1]);
 
+$currentResult = $result->current();
+
 // output result
-Debug::dump($result->current());
+Debug::dump($currentResult, 'Current result');

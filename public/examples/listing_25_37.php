@@ -23,4 +23,4 @@ $addressInputFilter = new InputFilter();
 $customerInputFilter = new InputFilter();
 $customerInputFilter->add($addressInputFilter, 'address');
 
-Debug::dump($customerInputFilter);
+Debug::dump($customerInputFilter->getInputs(), 'InputFilter input objects');

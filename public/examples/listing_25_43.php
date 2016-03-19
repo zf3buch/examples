@@ -44,7 +44,6 @@ $paginator->setItemCountPerPage(3);
 for ($page = 1; $page <= 6; $page++) {
     $paginator->setCurrentPageNumber($page);
 
-    echo "<hr>";
     Debug::dump('Page ' . $page);
 
     foreach ($paginator->getCurrentItems() as $currentItem) {

@@ -49,5 +49,8 @@ $form->setAttribute('action', '/form/sent');
 $form->add($fieldset);
 $form->add($submit);
 
-Debug::dump($form->getFieldsets());
-Debug::dump($form->getElements());
+$fieldsets = $form->getFieldsets();
+$elements = $form->getElements();
+
+Debug::dump($fieldsets, 'Form fieldsets');
+Debug::dump($elements, 'Form elements');

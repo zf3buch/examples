@@ -21,4 +21,4 @@ $config = Factory::fromFile(
     APPLICATION_ROOT . '/config/autoload/session.global.php'
 );
 
-Debug::dump($config);
+Debug::dump($config, 'Config data');

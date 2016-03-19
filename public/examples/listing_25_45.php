@@ -38,20 +38,28 @@ $rbac->addRole($editorRole);
 $rbac->addRole($adminRole);
 
 // ask rights for guest role
-Debug::dump($rbac->isGranted('guest', 'article.show'));
-Debug::dump($rbac->isGranted('guest', 'article.edit'));
-Debug::dump($rbac->isGranted('guest', 'article.delete'));
+$guestArticleShow = $rbac->isGranted('guest', 'article.show');
+$guestArticleEdit = $rbac->isGranted('guest', 'article.edit');
+$guestArticleDelete = $rbac->isGranted('guest', 'article.delete');
 
-echo "<hr>";
+Debug::dump($guestArticleShow, 'Guest article show');
+Debug::dump($guestArticleEdit, 'Guest article edit');
+Debug::dump($guestArticleDelete, 'Guest article delete');
 
 // ask rights for editor role
-Debug::dump($rbac->isGranted('editor', 'article.show'));
-Debug::dump($rbac->isGranted('editor', 'article.edit'));
-Debug::dump($rbac->isGranted('editor', 'article.delete'));
+$editorArticleShow = $rbac->isGranted('editor', 'article.show');
+$editorArticleEdit = $rbac->isGranted('editor', 'article.edit');
+$editorArticleDelete = $rbac->isGranted('editor', 'article.delete');
 
-echo "<hr>";
+Debug::dump($editorArticleShow, 'Editor article show');
+Debug::dump($editorArticleEdit, 'Editor article edit');
+Debug::dump($editorArticleDelete, 'Editor article delete');
 
 // ask rights for admin role
-Debug::dump($rbac->isGranted('admin', 'article.show'));
-Debug::dump($rbac->isGranted('admin', 'article.edit'));
-Debug::dump($rbac->isGranted('admin', 'article.delete'));
+$adminArticleShow = $rbac->isGranted('admin', 'article.show');
+$adminArticleEdit = $rbac->isGranted('admin', 'article.edit');
+$adminArticleDelete = $rbac->isGranted('admin', 'article.delete');
+
+Debug::dump($adminArticleShow, 'Admin article show');
+Debug::dump($adminArticleEdit, 'Admin article edit');
+Debug::dump($adminArticleDelete, 'Admin article delete');

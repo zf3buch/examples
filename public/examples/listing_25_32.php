@@ -21,7 +21,7 @@ $translator = new Translator();
 
 // add one translation file
 $translator->addTranslationFile(
-    'PhpArray',
+    'phparray',
     APPLICATION_ROOT . '/language/de_DE.php',
     'default',
     'de_DE'
@@ -29,7 +29,7 @@ $translator->addTranslationFile(
 
 // add translation files for path
 $translator->addTranslationFilePattern(
-    'PhpArray',
+    'phparray',
     APPLICATION_ROOT . '/language/',
     '%s.php',
     'default'
@@ -37,14 +37,27 @@ $translator->addTranslationFilePattern(
 
 // Set locale and output texts
 $translator->setLocale('de_DE');
-Debug::dump($translator->translate('message_saving_successful'));
-Debug::dump($translator->translate('message_saving_failed'));
-Debug::dump($translator->translate('label_firstname'));
-Debug::dump($translator->translate('label_lastname'));
+
+$deSuccessMessage = $translator->translate('message_saving_successful');
+$deFailedMessage = $translator->translate('message_saving_failed');
+$deFirstname = $translator->translate('label_firstname');
+$deLastname = $translator->translate('label_lastname');
+
+Debug::dump($deSuccessMessage, 'German translations');
+Debug::dump($deFailedMessage);
+Debug::dump($deFirstname);
+Debug::dump($deLastname);
 
 // Change locale and output texts
 $translator->setLocale('en_US');
-Debug::dump($translator->translate('message_saving_successful'));
-Debug::dump($translator->translate('message_saving_failed'));
-Debug::dump($translator->translate('label_firstname'));
-Debug::dump($translator->translate('label_lastname'));
+
+$enSuccessMessage = $translator->translate('message_saving_successful');
+$enFailedMessage = $translator->translate('message_saving_failed');
+$enFirstname = $translator->translate('label_firstname');
+$enLastname = $translator->translate('label_lastname');
+
+Debug::dump($enSuccessMessage, 'English translations');
+Debug::dump($enFailedMessage);
+Debug::dump($enFirstname);
+Debug::dump($enLastname);
+

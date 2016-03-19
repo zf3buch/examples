@@ -37,4 +37,6 @@ $rbac->addRole($guestRole);
 $rbac->addRole($editorRole);
 $rbac->addRole($adminRole);
 
-Debug::dump($rbac->getRole('admin'));
+$adminRole = $rbac->getRole('admin');
+
+Debug::dump($adminRole, 'Admin role');

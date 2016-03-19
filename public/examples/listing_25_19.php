@@ -21,9 +21,9 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 $alphaResult           = StaticFilter::execute('P1ZZ4', 'Alpha');
 $stringToLowerResult   = StaticFilter::execute('PIZZA', 'StringToLower');
 $dashToCamelCaseResult = StaticFilter::execute(
-    'pizza-service', 'Word\DashToCamelCase'
+    'pizza-service', 'WordDashToCamelCase'
 );
 
-Debug::dump($alphaResult);
-Debug::dump($stringToLowerResult);
-Debug::dump($dashToCamelCaseResult);
+Debug::dump($alphaResult, 'Result Alpha filter');
+Debug::dump($stringToLowerResult, 'Result StringToLower filter');
+Debug::dump($dashToCamelCaseResult, 'Result DashToCamelCase filter');

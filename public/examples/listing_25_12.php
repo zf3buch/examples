@@ -41,7 +41,7 @@ $insert->values(['name' => 'Pizza Wundertüte']);
 $sqlString = $sql->buildSqlString($insert);
 
 // output sql string
-Debug::dump($sqlString);
+Debug::dump($sqlString, 'SQL String ');
 
 // prepare and execute query
 $result = $adapter->query($sqlString)->execute();
@@ -58,10 +58,12 @@ $delete->where->equalTo('id', $id);
 $sqlString = $sql->buildSqlString($delete);
 
 // output sql string
-Debug::dump($sqlString);
+Debug::dump($sqlString, 'SQL string');
 
 // prepare and execute query
 $result = $adapter->query($sqlString)->execute();
 
+$affectedRows = $result->getAffectedRows();
+
 // output deleted rows
-Debug::dump($result->getAffectedRows());
+Debug::dump($affectedRows, 'Affected rows');

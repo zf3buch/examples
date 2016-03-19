@@ -18,42 +18,46 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // instantiate input filter
 $inputFilter = new InputFilter();
-$inputFilter->add([
-    'name' => 'email',
-    'required' => true,
-    'filters' => [
-        [
-            'name' => 'Striptags',
-        ],
-    ],
-    'validators' => [
-        [
-            'name' => 'EmailAddress',
-            'options' => [
-                'message' => 'Dies ist keine E-Mail Adresse!'
+$inputFilter->add(
+    [
+        'name'       => 'email',
+        'required'   => true,
+        'filters'    => [
+            [
+                'name' => 'StripTags',
             ],
-        ]
-    ],
-]);
-$inputFilter->add([
-    'name' => 'name',
-    'required' => true,
-    'filters' => [
-        [
-            'name' => 'StringTrim',
         ],
-    ],
-    'validators' => [
-        [
-            'name' => 'StringLength',
-            'options' => [
-                'min'     => 6,
-                'max'     => 32,
-                'message' => 'Nur %min% bis %max% Zeichen erlaubt!'
+        'validators' => [
+            [
+                'name'    => 'EmailAddress',
+                'options' => [
+                    'message' => 'Dies ist keine E-Mail Adresse!'
+                ],
+            ]
+        ],
+    ]
+);
+$inputFilter->add(
+    [
+        'name'       => 'name',
+        'required'   => true,
+        'filters'    => [
+            [
+                'name' => 'StringTrim',
             ],
-        ]
-    ],
-]);
+        ],
+        'validators' => [
+            [
+                'name'    => 'StringLength',
+                'options' => [
+                    'min'     => 6,
+                    'max'     => 32,
+                    'message' => 'Nur %min% bis %max% Zeichen erlaubt!'
+                ],
+            ]
+        ],
+    ]
+);
 
 $invalidInputData = [
     'email' => '<b>Nur Text</b>',
@@ -61,11 +65,14 @@ $invalidInputData = [
 ];
 
 $inputFilter->setData($invalidInputData);
-$result = $inputFilter->isValid();
 
-Debug::dump($result);
-Debug::dump($inputFilter->getValues());
-Debug::dump($inputFilter->getMessages());
+$result   = $inputFilter->isValid();
+$values   = $inputFilter->getValues();
+$messages = $inputFilter->getMessages();
+
+Debug::dump($result, 'Input filter result');
+Debug::dump($values, 'Input filter values');
+Debug::dump($messages, 'Input filter messages');
 
 $validInputData = [
     'email' => '<b>ralf@travello.com</b>',
@@ -73,8 +80,11 @@ $validInputData = [
 ];
 
 $inputFilter->setData($validInputData);
-$result = $inputFilter->isValid();
 
-Debug::dump($result);
-Debug::dump($inputFilter->getValues());
-Debug::dump($inputFilter->getMessages());
+$result   = $inputFilter->isValid();
+$values   = $inputFilter->getValues();
+$messages = $inputFilter->getMessages();
+
+Debug::dump($result, 'Input filter result');
+Debug::dump($values, 'Input filter values');
+Debug::dump($messages, 'Input filter messages');

@@ -17,8 +17,10 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // instantiate config
-$config      = new Config(['foo' => 'bar'], true);
-$config->bar = 'foo';
+$configObject      = new Config(['foo' => 'bar'], true);
+$configObject->bar = 'foo';
 
-Debug::dump($config);
-Debug::dump($config->toArray());
+$configArray = $configObject->toArray();
+
+Debug::dump($configObject, 'Config object');
+Debug::dump($configArray, 'Config array');

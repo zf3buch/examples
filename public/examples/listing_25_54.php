@@ -22,13 +22,19 @@ $alphaValidator = new Alpha();
 $alphaValidator->setMessage(
     'Der Wert "%value%" enthält nicht nur Buchstaben!'
 );
-Debug::dump($alphaValidator->isValid('P1ZZ4'));
-Debug::dump($alphaValidator->getMessages());
+$alphaResult   = $alphaValidator->isValid('P1ZZ4');
+$alphaMessages = $alphaValidator->getMessages();
+
+Debug::dump($alphaResult, 'Alpha result');
+Debug::dump($alphaMessages, 'Alpha messages');
 
 // use StringLength filter
 $stringLengthValidator = new StringLength(['min' => 6, 'max' => 32]);
 $stringLengthValidator->setMessage(
     'Der Wert muss zwischen %min% und %max% Zeichen lang sein.'
 );
-Debug::dump($stringLengthValidator->isValid('Pizza'));
-Debug::dump($stringLengthValidator->getMessages());
+$stringLengthResult = $stringLengthValidator->isValid('Pizza');
+$stringLengthMessages = $stringLengthValidator->getMessages();
+
+Debug::dump($stringLengthResult, 'StringLength result');
+Debug::dump($stringLengthMessages, 'StringLength messages');

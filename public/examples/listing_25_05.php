@@ -22,11 +22,11 @@ $mergedConfig = Factory::fromFiles([
     APPLICATION_ROOT . '/config/autoload/some.config.ini'
 ]);
 
-Debug::dump($mergedConfig);
+Debug::dump($mergedConfig, 'Merged config with file array');
 
 // Load config data with glob
 $mergedConfig = Factory::fromFiles(
     glob(APPLICATION_ROOT . '/config/autoload/*')
 );
 
-Debug::dump($mergedConfig);
+Debug::dump($mergedConfig, 'Merged config with glob');

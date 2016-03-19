@@ -46,8 +46,11 @@ $form->add($name);
 $form->add($comment);
 $form->add($submit);
 
-Debug::dump($form->getAttributes());
-Debug::dump($form->getElements());
+$formAttributes = $form->getAttributes();
+$formElements   = $form->getElements();
+
+Debug::dump($formAttributes, 'Form attributes');
+Debug::dump($formElements, 'Form elements');
 
 // define configuration array
 $formArray = [
@@ -99,12 +102,12 @@ $formArray = [
 
 // instantiate form factory
 $factory = new Factory();
-$factory->setFormElementManager(
-    new FormElementManager(new Config())
-);
 
 // build form with configuration array
 $form = $factory->createForm($formArray);
 
-Debug::dump($form->getAttributes());
-Debug::dump($form->getElements());
+$formAttributes = $form->getAttributes();
+$formElements   = $form->getElements();
+
+Debug::dump($formAttributes, 'Form attributes');
+Debug::dump($formElements, 'Form elements');

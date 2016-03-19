@@ -48,7 +48,7 @@ $createTable->addConstraint(new PrimaryKey('id'));
 $sqlString = $sql->buildSqlString($createTable);
 
 // output sql string
-Debug::dump($sqlString);
+Debug::dump($sqlString, 'SQL string');
 
 // prepare and execute query
 $result = $adapter->query($sqlString)->execute();
@@ -57,7 +57,7 @@ $result = $adapter->query($sqlString)->execute();
 $result = $adapter->query('SHOW TABLES')->execute();
 
 foreach ($result as $table) {
-    Debug::dump($table);
+    Debug::dump($table, 'Tablename');
 }
 
 // drop new table
@@ -67,7 +67,7 @@ $dropTable = new DropTable('pizza_temp');
 $sqlString = $sql->buildSqlString($dropTable);
 
 // output sql string
-Debug::dump($sqlString);
+Debug::dump($sqlString, 'SQL String');
 
 // prepare and execute query
 $result = $adapter->query($sqlString)->execute();

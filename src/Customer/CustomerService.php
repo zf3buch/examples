@@ -10,23 +10,23 @@
 namespace Customer;
 
 /**
- * Class Service
+ * Class CustomerService
  *
  * @package Customer
  */
-class Service
+class CustomerService
 {
     /**
-     * @var Form
+     * @var CustomerForm
      */
     private $form;
 
     /**
      * Service constructor.
      *
-     * @param Form $form
+     * @param CustomerForm $form
      */
-    public function __construct(Form $form)
+    public function __construct(CustomerForm $form)
     {
         $this->form = $form;
     }

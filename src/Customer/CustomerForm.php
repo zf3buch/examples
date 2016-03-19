@@ -10,10 +10,10 @@
 namespace Customer;
 
 /**
- * Class Form
+ * Class CustomerForm
  *
  * @package Customer
  */
-class Form
+class CustomerForm
 {
 }

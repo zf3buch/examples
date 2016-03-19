@@ -10,11 +10,11 @@
 namespace Customer;
 
 /**
- * Class Entity
+ * Class CustomerEntity
  *
  * @package Customer
  */
-class Entity
+class CustomerEntity
 {
     /**
      * @var int

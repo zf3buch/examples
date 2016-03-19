@@ -19,9 +19,9 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 // create filter chain
 $filterChain = new FilterChain();
 $filterChain->attachByName('Alpha');
-$filterChain->attachByName('Word\CamelCaseToDash');
+$filterChain->attachByName('WordDashToCamelCase');
 $filterChain->attachByName('StringToLower');
 
 $result = $filterChain->filter('Pizza123Service');
 
-Debug::dump($result);
+Debug::dump($result, 'Result filter chain');

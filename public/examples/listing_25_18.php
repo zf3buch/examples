@@ -31,6 +31,6 @@ $stringToLowerResult = $stringToLowerFilter->filter('PIZZA');
 $dashToCamelCaseFilter = new DashToCamelCase();
 $dashToCamelCaseResult = $dashToCamelCaseFilter->filter('pizza-service');
 
-Debug::dump($alphaResult);
-Debug::dump($stringToLowerResult);
-Debug::dump($dashToCamelCaseResult);
+Debug::dump($alphaResult, 'Result Alpha filter');
+Debug::dump($stringToLowerResult, 'Result StringToLower filter');
+Debug::dump($dashToCamelCaseResult, 'Result DashToCamelCase filter');

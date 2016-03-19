@@ -44,6 +44,7 @@ $pages = [
 
 // instantiate navigation
 $navigation = new Navigation($pages);
+$pages = $navigation->getPages();
 
 // output some data
-Debug::dump($navigation->getPages());
+Debug::dump($pages, 'Navigation pages');

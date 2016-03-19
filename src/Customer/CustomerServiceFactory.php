@@ -9,30 +9,29 @@
 
 namespace Customer;
 
-use Customer\Service as CustomerService;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * Class ServiceFactory
+ * Class CustomerServiceFactory
  *
  * @package Customer
  */
-class ServiceFactory implements FactoryInterface
+class CustomerServiceFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
-     * @param string             $requestedName
-     * @param array|null         $options
+     * @param string $requestedName
+     * @param array|null $options
      *
-     * @return Service
+     * @return CustomerService
      */
     public function __invoke(
         ContainerInterface $container, $requestedName,
         array $options = null
     ) {
-        /** @var Form $customerForm */
-        $customerForm = $container->get(Form::class);
+        /** @var CustomerForm $customerForm */
+        $customerForm = $container->get(CustomerForm::class);
 
         return new CustomerService($customerForm);
     }

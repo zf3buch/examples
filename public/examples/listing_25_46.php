@@ -21,15 +21,15 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 $serviceManager = new ServiceManager(
     [
         'factories'  => [
-            Customer\Form::class => InvokableFactory::class,
-            Customer\Service::class => Customer\ServiceFactory::class,
+            Customer\CustomerForm::class => InvokableFactory::class,
+            Customer\CustomerService::class => Customer\CustomerServiceFactory::class,
         ],
     ]
 );
 
 // get customer form and service
-$customerForm    = $serviceManager->get(Customer\Form::class);
-$customerService = $serviceManager->get(Customer\Service::class);
+$customerForm    = $serviceManager->get(Customer\CustomerForm::class);
+$customerService = $serviceManager->get(Customer\CustomerService::class);
 
-Debug::dump($customerForm);
-Debug::dump($customerService);
+Debug::dump($customerForm, 'Customer form');
+Debug::dump($customerService, 'Customer service');

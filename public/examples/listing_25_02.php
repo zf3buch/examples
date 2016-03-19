@@ -49,11 +49,13 @@ $authAdapter->setCredential('test');
 
 $result = $authService->authenticate($authAdapter);
 
-Debug::dump($result->isValid());
-Debug::dump($result->getIdentity());
-Debug::dump($result->getMessages());
+$isValid  = $result->isValid();
+$identity = $result->getIdentity();
+$messages = $result->getMessages();
 
-echo "<hr>";
+Debug::dump($isValid, 'honk/test result is valid?');
+Debug::dump($identity, 'honk/test result identity');
+Debug::dump($messages, 'honk/test result messages');
 
 // test with known user and wrong password
 $authAdapter->setIdentity('kunde@vote-my-pizza.de');
@@ -61,11 +63,13 @@ $authAdapter->setCredential('test');
 
 $result = $authService->authenticate($authAdapter);
 
-Debug::dump($result->isValid());
-Debug::dump($result->getIdentity());
-Debug::dump($result->getMessages());
+$isValid  = $result->isValid();
+$identity = $result->getIdentity();
+$messages = $result->getMessages();
 
-echo "<hr>";
+Debug::dump($isValid, 'kunde@vote-my-pizza.de/test result is valid?');
+Debug::dump($identity, 'kunde@vote-my-pizza.de/test result identity');
+Debug::dump($messages, 'kunde@vote-my-pizza.de/test result messages');
 
 // test with known user and right password
 $authAdapter->setIdentity('kunde@vote-my-pizza.de');
@@ -73,21 +77,27 @@ $authAdapter->setCredential('test123');
 
 $result = $authService->authenticate($authAdapter);
 
-Debug::dump($result->isValid());
-Debug::dump($result->getIdentity());
-Debug::dump($result->getMessages());
+$isValid  = $result->isValid();
+$identity = $result->getIdentity();
+$messages = $result->getMessages();
 
-echo "<hr>";
+Debug::dump($isValid, 'kunde@vote-my-pizza.de/test123 result is valid?');
+Debug::dump($identity, 'kunde@vote-my-pizza.de/test123 result identity');
+Debug::dump($messages, 'kunde@vote-my-pizza.de/test123 result messages');
 
 // check authentication service
-Debug::dump($authService->hasIdentity());
-Debug::dump($authService->getIdentity());
+$hasIdentity = $authService->hasIdentity();
+$identity    = $authService->getIdentity();
 
-echo "<hr>";
+Debug::dump($hasIdentity, 'auth service has identity, after authentication');
+Debug::dump($identity, 'auth service identity, after authentication');
 
 // clear identity
 $authService->clearIdentity();
 
-Debug::dump($authService->hasIdentity());
-Debug::dump($authService->getIdentity());
+$hasIdentity = $authService->hasIdentity();
+$identity    = $authService->getIdentity();
+
+Debug::dump($hasIdentity, 'auth service has identity, after clearing');
+Debug::dump($identity, 'auth service identity, after clearing');
 

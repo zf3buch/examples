@@ -7,7 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Customer\Entity;
+use Customer\CustomerEntity;
 use Zend\Debug\Debug;
 use Zend\Hydrator\ClassMethods;
 
@@ -25,7 +25,7 @@ $inputData = [
 ];
 
 // instantiate customer entity
-$customer = new Entity();
+$customer = new CustomerEntity();
 
 // instantiate hydrator
 $hydrator = new ClassMethods();
@@ -34,5 +34,5 @@ $hydrator->hydrate($inputData, $customer);
 // get output data
 $outputData = $hydrator->extract($customer);
 
-Debug::dump($customer);
-Debug::dump($outputData);
+Debug::dump($customer, 'Customer entity');
+Debug::dump($outputData, 'Output data');

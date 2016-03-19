@@ -27,7 +27,7 @@ $cookieParams  = $request->getCookieParams();
 $uploadedFiles = $request->getUploadedFiles();
 $method        = $request->getMethod();
 
-Debug::dump($queryParams);
-Debug::dump($cookieParams);
-Debug::dump($uploadedFiles);
-Debug::dump($method);
+Debug::dump($queryParams, 'Query params');
+Debug::dump($cookieParams, 'Cookie params');
+Debug::dump($uploadedFiles, 'Uploaded files');
+Debug::dump($method, 'HTTP method');

@@ -23,7 +23,7 @@ $inputFilter->add([
     'required' => true,
     'filters' => [
         [
-            'name' => 'Striptags',
+            'name' => 'StripTags',
         ],
     ],
     'validators' => [
@@ -55,4 +55,4 @@ $inputFilter->add([
     ],
 ]);
 
-Debug::dump($inputFilter);
+Debug::dump($inputFilter->getInputs(), 'Input filter input objects');

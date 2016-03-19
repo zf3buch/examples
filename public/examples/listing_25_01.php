@@ -39,4 +39,4 @@ $authAdapter = new CallbackCheckAdapter(
     }
 );
 
-Debug::dump($authAdapter);
+Debug::dump($authAdapter, 'CallbackCheckAdapter Instance');

@@ -31,7 +31,7 @@ $request = new Request(
     ]
 );
 
-Debug::dump($request);
+Debug::dump($request, 'Request object');
 
 // instantiate client for demonstration
 //$client = new Client();
@@ -45,6 +45,6 @@ $statusCode = $response->getStatusCode();
 $headers    = $response->getHeaders();
 $body       = $response->getBody();
 
-Debug::dump($statusCode);
-Debug::dump($headers);
-Debug::dump($body);
+Debug::dump($statusCode, 'Response status Code');
+Debug::dump($headers, 'Response headers');
+Debug::dump($body, 'Response body');

@@ -43,7 +43,9 @@ $form->add($name);
 $form->add($comment);
 $form->add($submit);
 
-// instantiate form view helper directly
-Debug::dump($form->getAttributes());
-Debug::dump($form->getElements());
+$formAttributes = $form->getAttributes();
+$formElements = $form->getElements();
 
+// instantiate form view helper directly
+Debug::dump($formAttributes, 'Form attributes');
+Debug::dump($formElements, 'Form elements');

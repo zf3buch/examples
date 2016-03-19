@@ -57,5 +57,9 @@ $user = $authAdapter->getResultRowObject(null, ['password']);
 $authService->getStorage()->write($user);
 
 // check identity
-Debug::dump($authService->hasIdentity());
-Debug::dump($authService->getIdentity());
+$hasIdentity = $authService->hasIdentity();
+$identity    = $authService->getIdentity();
+
+Debug::dump($hasIdentity, 'auth service has identity, after storing');
+Debug::dump($identity, 'auth service identity, after storing');
+

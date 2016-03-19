@@ -48,10 +48,12 @@ $select->columns(
 $sqlString = $sql->buildSqlString($select);
 
 // output sql string
-Debug::dump($sqlString);
+Debug::dump($sqlString, 'SQL string');
 
 // prepare and execute query
 $result = $adapter->query($sqlString)->execute();
 
+$currentResult = $result->current();
+
 // output result
-Debug::dump($result->current());
+Debug::dump($currentResult, 'Current result');
