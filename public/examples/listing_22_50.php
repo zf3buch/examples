@@ -19,7 +19,7 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 // create new middleware pipe
 $app = new MiddlewarePipe();
 $app->pipe(
-    '/examples/listing_25_50.php',
+    '/examples/listing_22_50.php',
     function ($request, $response, $next) {
         if (!in_array($request->getUri()->getPath(), ['/', ''], true)) {
             return $next($request, $response);
@@ -29,7 +29,7 @@ $app->pipe(
     }
 );
 $app->pipe(
-    '/examples/listing_25_50.php/pizza',
+    '/examples/listing_22_50.php/pizza',
     function ($request, $response, $next) {
         return $response->end('Pizza für alle!');
     }
