@@ -60,5 +60,8 @@ $cachedRandomNumber = PatternFactory::factory('class', $patternConfig);
 
 $normalRandomNumber = new RandomNumber();
 
-Debug::dump($cachedRandomNumber->get());
-Debug::dump($normalRandomNumber->get());
+$cachedNumber = $cachedRandomNumber->get();
+$unCachedNumber = $normalRandomNumber->get();
+
+Debug::dump($cachedNumber, 'Cached Number');
+Debug::dump($unCachedNumber, 'Uncached Number');
