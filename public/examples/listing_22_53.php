@@ -8,7 +8,9 @@
  */
 
 use Zend\Debug\Debug;
-use Zend\Validator\ValidatorChain;
+use Zend\Permissions\Acl\Acl;
+use Zend\Permissions\Acl\Resource\GenericResource;
+use Zend\Permissions\Acl\Role\GenericRole;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -16,14 +18,22 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// create validator chain
-$validatorChain = new ValidatorChain();
-$validatorChain->attachByName('Alpha');
-$validatorChain->attachByName('StringLength', ['min' => 6, 'max' => 32]);
-$validatorChain->attachByName('PostCode');
+// instantiate roles
+$guestRole = new GenericRole('guest');
+$editorRole = new GenericRole('editor');
+$adminRole = new GenericRole('admin');
 
-$result   = $validatorChain->isValid('P1zz4');
-$messages = $validatorChain->getMessages();
+// instantiate resources
+$articleResource = new GenericResource('article');
 
-Debug::dump($result, 'Validator chain result');
-Debug::dump($messages, 'Validator chain messages');
+// instantiate new ACL
+$acl = new Acl();
+$acl->addRole($guestRole);
+$acl->addRole($editorRole, $guestRole);
+$acl->addRole($adminRole, $editorRole);
+$acl->addResource($articleResource);
+$acl->allow($guestRole, $articleResource, 'show');
+$acl->allow($editorRole, $articleResource, 'edit');
+$acl->allow($adminRole, $articleResource, 'delete');
+
+Debug::dump($adminRole, 'Admin role');

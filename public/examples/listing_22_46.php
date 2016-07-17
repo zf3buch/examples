@@ -8,8 +8,7 @@
  */
 
 use Zend\Debug\Debug;
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\ServiceManager\ServiceManager;
+use Zend\InputFilter\InputFilter;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -17,19 +16,11 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// configure service manager
-$serviceManager = new ServiceManager(
-    [
-        'factories'  => [
-            Customer\CustomerForm::class => InvokableFactory::class,
-            Customer\CustomerService::class => Customer\CustomerServiceFactory::class,
-        ],
-    ]
-);
+// instantiate address input filter
+$addressInputFilter = new InputFilter();
 
-// get customer form and service
-$customerForm    = $serviceManager->get(Customer\CustomerForm::class);
-$customerService = $serviceManager->get(Customer\CustomerService::class);
+// instantiate customer input filter
+$customerInputFilter = new InputFilter();
+$customerInputFilter->add($addressInputFilter, 'address');
 
-Debug::dump($customerForm, 'Customer form');
-Debug::dump($customerService, 'Customer service');
+Debug::dump($customerInputFilter->getInputs(), 'InputFilter input objects');

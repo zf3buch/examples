@@ -7,36 +7,17 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Diactoros\Server;
-use Zend\Stratigility\MiddlewarePipe;
-
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// create new middleware pipe
-$app = new MiddlewarePipe();
-$app->pipe(
-    '/examples/listing_22_50.php',
-    function ($request, $response, $next) {
-        if (!in_array($request->getUri()->getPath(), ['/', ''], true)) {
-            return $next($request, $response);
-        }
 
-        return $response->end('Luigis Home Page!');
-    }
+// load file content
+$fileName = realpath(
+    APPLICATION_ROOT . '/templates/listing_22_50.phtml'
 );
-$app->pipe(
-    '/examples/listing_22_50.php/pizza',
-    function ($request, $response, $next) {
-        return $response->end('Pizza für alle!');
-    }
-);
+$fileContent = implode('', file($fileName));
 
-// instantiate server and listen to request
-$server = Server::createServer(
-    $app, $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
-);
-$server->listen();
+echo '<pre>' . htmlspecialchars($fileContent) . '</pre>';

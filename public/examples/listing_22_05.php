@@ -7,8 +7,10 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Config\Factory;
+use Zend\Cache\PatternFactory;
+use Zend\Cache\StorageFactory;
 use Zend\Debug\Debug;
+use Zend\Math\Rand;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -16,17 +18,47 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// Load config data from a directory
-$mergedConfig = Factory::fromFiles([
-    APPLICATION_ROOT . '/config/autoload/session.global.php',
-    APPLICATION_ROOT . '/config/autoload/some.config.ini'
-]);
+/**
+ * Class RandomNumber
+ */
+class RandomNumber
+{
+    /**
+     * @return int
+     */
+    public function get()
+    {
+        return Rand::getInteger(10000, 99999);
+    }
+}
 
-Debug::dump($mergedConfig, 'Merged config with file array');
+// configure cache
+$storageConfig = [
+    'adapter' => [
+        'name'    => 'filesystem',
+        'options' => [
+            'ttl'       => 3,
+            'cache_dir' => APPLICATION_ROOT . '/data/cache',
+        ],
+    ],
+    'plugins' => [
+        'serializer',
+    ],
+];
 
-// Load config data with glob
-$mergedConfig = Factory::fromFiles(
-    glob(APPLICATION_ROOT . '/config/autoload/*')
-);
+$cache = StorageFactory::factory($storageConfig);
 
-Debug::dump($mergedConfig, 'Merged config with glob');
+// configure cache
+$patternConfig = [
+    'class'        => 'RandomNumber',
+    'storage'      => $cache,
+    'cache_output' => true,
+];
+
+/** @var RandomNumber $cachedRandomNumber */
+$cachedRandomNumber = PatternFactory::factory('class', $patternConfig);
+
+$normalRandomNumber = new RandomNumber();
+
+Debug::dump($cachedRandomNumber->get());
+Debug::dump($normalRandomNumber->get());

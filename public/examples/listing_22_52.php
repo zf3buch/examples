@@ -7,8 +7,11 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\TableGateway\TableGateway;
 use Zend\Debug\Debug;
-use Zend\Validator\StaticValidator;
+use Zend\Paginator\Adapter\DbTableGateway;
+use Zend\Paginator\Paginator;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -16,15 +19,34 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// use Alpha validator
-$alphaResult      = StaticValidator::execute('P1ZZ4', 'Alpha');
-$creditCardResult = StaticValidator::execute(
-    '4111111111111111', 'CreditCard'
-);
-$inArrayResult    = StaticValidator::execute(
-    'blue', 'InArray', ['haystack' => ['red', 'green', 'white']]
-);
+// configure database
+$config = [
+    'driver' => 'pdo',
+    'dsn'    => 'mysql:dbname=examples;host=localhost;charset=utf8',
+    'user'   => 'example-user',
+    'pass'   => 'geheim',
+];
 
-Debug::dump($alphaResult, 'Alpha result');
-Debug::dump($creditCardResult, 'CreditCard result');
-Debug::dump($inArrayResult, 'InArray result');
+// instantiate adapter
+$dbAdapter = new Adapter($config);
+
+// instantiate table gateway
+$tableGateway = new TableGateway('pizza', $dbAdapter);
+
+// configure paginator adapter
+$paginatorAdapter = new DbTableGateway($tableGateway, null, 'name ASC');
+
+// instantiate paginator
+$paginator = new Paginator($paginatorAdapter);
+$paginator->setItemCountPerPage(3);
+
+// loop through elements
+for ($page = 1; $page <= 6; $page++) {
+    $paginator->setCurrentPageNumber($page);
+
+    Debug::dump('Page ' . $page);
+
+    foreach ($paginator->getCurrentItems() as $currentItem) {
+        Debug::dump($currentItem);
+    }
+}

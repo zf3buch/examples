@@ -8,13 +8,6 @@
  */
 
 use Zend\Db\Adapter\Adapter;
-use Zend\Db\Sql\Ddl\Column\Datetime;
-use Zend\Db\Sql\Ddl\Column\Integer;
-use Zend\Db\Sql\Ddl\Column\Varchar;
-use Zend\Db\Sql\Ddl\Constraint\PrimaryKey;
-use Zend\Db\Sql\Ddl\CreateTable;
-use Zend\Db\Sql\Ddl\DropTable;
-use Zend\Db\Sql\Sql;
 use Zend\Debug\Debug;
 
 // define application root for better file path definitions
@@ -34,40 +27,9 @@ $config = [
 // instantiate adapter
 $adapter = new Adapter($config);
 
-// instantiate sql object
-$sql = new Sql($adapter);
+// test adapter
+$platformName  = $adapter->getPlatform()->getName();
+$currentSchema = $adapter->getCurrentSchema();
 
-// create new table
-$createTable = new CreateTable('pizza_temp');
-$createTable->addColumn(new Integer('id'));
-$createTable->addColumn(new Varchar('name', 64));
-$createTable->addColumn(new Datetime('date'));
-$createTable->addConstraint(new PrimaryKey('id'));
-
-// build sql string
-$sqlString = $sql->buildSqlString($createTable);
-
-// output sql string
-Debug::dump($sqlString, 'SQL string');
-
-// prepare and execute query
-$result = $adapter->query($sqlString)->execute();
-
-// prepare and execute query
-$result = $adapter->query('SHOW TABLES')->execute();
-
-foreach ($result as $table) {
-    Debug::dump($table, 'Tablename');
-}
-
-// drop new table
-$dropTable = new DropTable('pizza_temp');
-
-// build sql string
-$sqlString = $sql->buildSqlString($dropTable);
-
-// output sql string
-Debug::dump($sqlString, 'SQL String');
-
-// prepare and execute query
-$result = $adapter->query($sqlString)->execute();
+Debug::dump($platformName, 'Platform name');
+Debug::dump($currentSchema, 'Current table schema');

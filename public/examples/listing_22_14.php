@@ -8,7 +8,6 @@
  */
 
 use Zend\Db\Adapter\Adapter;
-use Zend\Db\TableGateway\TableGateway;
 use Zend\Debug\Debug;
 
 // define application root for better file path definitions
@@ -19,26 +18,25 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // configure database
 $config = [
-    'driver' => 'pdo',
-    'dsn'    => 'mysql:dbname=examples;host=localhost;charset=utf8',
-    'user'   => 'example-user',
-    'pass'   => 'geheim',
+    'driver'  => 'pdo',
+    'dsn'     => 'mysql:dbname=examples;host=localhost;charset=utf8',
+    'user'    => 'example-user',
+    'pass'    => 'geheim',
 ];
 
 // instantiate adapter
 $adapter = new Adapter($config);
 
-// create table gateway instance
-$table = new TableGateway('pizza', $adapter);
+// generate SQL statement
+$sql = 'SELECT * FROM pizza WHERE id = ?';
 
-// select data
-$select = $table->getSql()->select();
-$select->order('name');
+// prepare query
+$query = $adapter->query($sql);
 
-// get rows
-$rows = $table->selectWith($select);
+// execute query
+$result = $query->execute([1]);
 
-// output rows
-foreach ($rows as $row) {
-    Debug::dump($row, 'Pizza dataset');
-}
+$currentResult = $result->current();
+
+// output result
+Debug::dump($currentResult, 'Current result');

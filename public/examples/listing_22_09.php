@@ -7,7 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Db\Adapter\Adapter;
+use Zend\Config\Factory;
 use Zend\Debug\Debug;
 
 // define application root for better file path definitions
@@ -16,27 +16,18 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// configure database
-$config = [
-    'driver'  => 'pdo',
-    'dsn'     => 'mysql:dbname=examples;host=localhost;charset=utf8',
-    'user'    => 'example-user',
-    'pass'    => 'geheim',
-];
+// Load config data from a directory
+$mergedConfig = Factory::fromFiles([
+    APPLICATION_ROOT . '/config/autoload/session.global.php',
+    APPLICATION_ROOT . '/config/autoload/some.config.ini'
+]);
 
-// instantiate adapter
-$adapter = new Adapter($config);
+// set output file
+$cacheFile = APPLICATION_ROOT . '/data/cache/config.json';
 
-// generate SQL statement
-$sql = 'SELECT * FROM pizza WHERE id = ?';
+// Write config data to file
+Factory::toFile($cacheFile, $mergedConfig);
 
-// prepare query
-$query = $adapter->query($sql);
+$fileCheck = file_exists($cacheFile);
 
-// execute query
-$result = $query->execute([1]);
-
-$currentResult = $result->current();
-
-// output result
-Debug::dump($currentResult, 'Current result');
+Debug::dump($fileCheck, 'File check');

@@ -7,46 +7,14 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\TableGateway\TableGateway;
-use Zend\Debug\Debug;
-use Zend\Paginator\Adapter\DbTableGateway;
-use Zend\Paginator\Paginator;
-
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// configure database
-$config = [
-    'driver' => 'pdo',
-    'dsn'    => 'mysql:dbname=examples;host=localhost;charset=utf8',
-    'user'   => 'example-user',
-    'pass'   => 'geheim',
-];
+// load file content
+$fileName = realpath(APPLICATION_ROOT . '/templates/listing_22_43.phtml');
+$fileContent = implode('', file($fileName));
 
-// instantiate adapter
-$dbAdapter = new Adapter($config);
-
-// instantiate table gateway
-$tableGateway = new TableGateway('pizza', $dbAdapter);
-
-// configure paginator adapter
-$paginatorAdapter = new DbTableGateway($tableGateway, null, 'name ASC');
-
-// instantiate paginator
-$paginator = new Paginator($paginatorAdapter);
-$paginator->setItemCountPerPage(3);
-
-// loop through elements
-for ($page = 1; $page <= 6; $page++) {
-    $paginator->setCurrentPageNumber($page);
-
-    Debug::dump('Page ' . $page);
-
-    foreach ($paginator->getCurrentItems() as $currentItem) {
-        Debug::dump($currentItem);
-    }
-}
+echo '<pre>' . htmlspecialchars($fileContent) . '</pre>';

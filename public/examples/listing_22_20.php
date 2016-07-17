@@ -7,8 +7,9 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\TableGateway\TableGateway;
 use Zend\Debug\Debug;
-use Zend\Filter\FilterChain;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -16,12 +17,28 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// create filter chain
-$filterChain = new FilterChain();
-$filterChain->attachByName('Alpha');
-$filterChain->attachByName('WordDashToCamelCase');
-$filterChain->attachByName('StringToLower');
+// configure database
+$config = [
+    'driver' => 'pdo',
+    'dsn'    => 'mysql:dbname=examples;host=localhost;charset=utf8',
+    'user'   => 'example-user',
+    'pass'   => 'geheim',
+];
 
-$result = $filterChain->filter('Pizza123Service');
+// instantiate adapter
+$adapter = new Adapter($config);
 
-Debug::dump($result, 'Result filter chain');
+// create table gateway instance
+$table = new TableGateway('pizza', $adapter);
+
+// select data
+$select = $table->getSql()->select();
+$select->order('name');
+
+// get rows
+$rows = $table->selectWith($select);
+
+// output rows
+foreach ($rows as $row) {
+    Debug::dump($row, 'Pizza dataset');
+}

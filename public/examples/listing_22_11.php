@@ -7,53 +7,16 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\Sql\Expression;
-use Zend\Db\Sql\Sql;
-use Zend\Debug\Debug;
-
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// configure database
-$config = [
-    'driver' => 'pdo',
-    'dsn'    => 'mysql:dbname=examples;host=localhost;charset=utf8',
-    'user'   => 'example-user',
-    'pass'   => 'geheim',
-];
-
-// instantiate adapter
-$adapter = new Adapter($config);
-
-// instantiate sql object
-$sql = new Sql($adapter);
-
-// prepare id identifier
-$idIdentifier = $adapter->getPlatform()->quoteIdentifier('id');
-
-// build select
-$select = $sql->select();
-$select->from('pizza');
-$select->columns(
-    [
-        'summe' => new Expression('COUNT(' . $idIdentifier . ')')
-    ]
+// load file content
+$fileName    = realpath(
+    APPLICATION_ROOT . '/config/autoload/console.routes.php'
 );
+$fileContent = implode('', file($fileName));
 
-// build sql string
-$sqlString = $sql->buildSqlString($select);
-
-// output sql string
-Debug::dump($sqlString, 'SQL string');
-
-// prepare and execute query
-$result = $adapter->query($sqlString)->execute();
-
-$currentResult = $result->current();
-
-// output result
-Debug::dump($currentResult, 'Current result');
+echo '<pre>' . htmlspecialchars($fileContent) . '</pre>';

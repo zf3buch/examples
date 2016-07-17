@@ -7,14 +7,30 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
+use Zend\Filter\Compress;
+use Zend\Filter\StringToLower;
+use Zend\Filter\Word\DashToCamelCase;
+use Zend\I18n\Filter\Alpha;
+
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// load file content
-$fileName = realpath(APPLICATION_ROOT . '/src/Customer/CustomerEntity.php');
-$fileContent = implode('', file($fileName));
+// use Alpha filter
+$alphaFilter = new Alpha();
+$alphaResult = $alphaFilter->filter('P1ZZ4');
 
-echo '<pre>' . htmlspecialchars($fileContent) . '</pre>';
+// use StringToLower filter
+$stringToLowerFilter = new StringToLower();
+$stringToLowerResult = $stringToLowerFilter->filter('PIZZA');
+
+// use DashToCamelCase filter
+$dashToCamelCaseFilter = new DashToCamelCase();
+$dashToCamelCaseResult = $dashToCamelCaseFilter->filter('pizza-service');
+
+Debug::dump($alphaResult, 'Result Alpha filter');
+Debug::dump($stringToLowerResult, 'Result StringToLower filter');
+Debug::dump($dashToCamelCaseResult, 'Result DashToCamelCase filter');

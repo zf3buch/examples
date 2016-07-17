@@ -8,11 +8,9 @@
  */
 
 use Zend\Debug\Debug;
-use Zend\Form\Element\Submit;
-use Zend\Form\Element\Text;
-use Zend\Form\Element\Textarea;
-use Zend\Form\Fieldset;
-use Zend\Form\Form;
+use Zend\Diactoros\Request;
+use Zend\Diactoros\Response;
+use Zend\Diactoros\Uri;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -20,37 +18,33 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// instantiate text element
-$name = new Text('name');
-$name->setLabel('Your Name');
-$name->setAttribute('class', 'my-class');
-$name->setAttribute('maxlength', 64);
+// instantiate uri
+$uri = new Uri('http://www.zendframeworkbuch.de/');
 
-// instantiate text area
-$comment = new Textarea('comment');
-$comment->setLabel('Your Comment');
-$comment->setAttribute('class', 'another-class');
-$comment->setAttributes(['rows' => 4, 'cols' => '64']);
+// instantiate request
+$request = new Request(
+    $uri,
+    'POST',
+    'php://memory',
+    [
+        'Content-Type' => 'application/json',
+    ]
+);
 
-// instantiate fieldset
-$fieldset = new Fieldset('data');
-$fieldset->setLabel('Your Data');
-$fieldset->add($name);
-$fieldset->add($comment);
+Debug::dump($request, 'Request object');
 
-// instantiate submit button
-$submit = new Submit('submit');
-$submit->setValue('Save Comment');
-$submit->setAttribute('id', 'submit');
+// instantiate client for demonstration
+//$client = new Client();
+//$response = $client->send($request);
 
-// instantiate form and add elements
-$form = new Form();
-$form->setAttribute('action', '/form/sent');
-$form->add($fieldset);
-$form->add($submit);
+/** @var Response $response */
+$response = new Response();
 
-$fieldsets = $form->getFieldsets();
-$elements = $form->getElements();
+// get data from response
+$statusCode = $response->getStatusCode();
+$headers    = $response->getHeaders();
+$body       = $response->getBody();
 
-Debug::dump($fieldsets, 'Form fieldsets');
-Debug::dump($elements, 'Form elements');
+Debug::dump($statusCode, 'Response status Code');
+Debug::dump($headers, 'Response headers');
+Debug::dump($body, 'Response body');

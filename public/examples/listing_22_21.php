@@ -7,11 +7,10 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Debug\Debug;
-use Zend\Form\Element\Submit;
-use Zend\Form\Element\Text;
-use Zend\Form\Element\Textarea;
-use Zend\Form\Form;
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\TableGateway\Feature\FeatureSet;
+use Zend\Db\TableGateway\Feature\MasterSlaveFeature;
+use Zend\Db\TableGateway\TableGateway;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -19,33 +18,21 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// instantiate text element
-$name = new Text('name');
-$name->setLabel('Your Name');
-$name->setAttribute('class', 'my-class');
-$name->setAttribute('maxlength', 64);
+// configure database
+$config = [
+    'driver' => 'pdo',
+    'dsn'    => 'mysql:dbname=examples;host=localhost;charset=utf8',
+    'user'   => 'example-user',
+    'pass'   => 'geheim',
+];
 
-// instantiate text area
-$comment = new Textarea('comment');
-$comment->setLabel('Your Comment');
-$comment->setAttribute('class', 'another-class');
-$comment->setAttributes(['rows' => 4, 'cols' => '64']);
+// instantiate adapter
+$masterAdapter = new Adapter($config);
+$slaveAdapter  = new Adapter($config);
 
-// instantiate submit button
-$submit = new Submit('submit');
-$submit->setValue('Save Comment');
-$submit->setAttribute('id', 'submit');
+// instantiate feature set
+$featureSet = new FeatureSet();
+$featureSet->addFeature(new MasterSlaveFeature($slaveAdapter));
 
-// instantiate form and add elements
-$form = new Form();
-$form->setAttribute('action', '/form/sent');
-$form->add($name);
-$form->add($comment);
-$form->add($submit);
-
-$formAttributes = $form->getAttributes();
-$formElements = $form->getElements();
-
-// instantiate form view helper directly
-Debug::dump($formAttributes, 'Form attributes');
-Debug::dump($formElements, 'Form elements');
+// instantiate table gateway instance
+$table = new TableGateway('pizza', $masterAdapter, $featureSet);

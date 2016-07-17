@@ -8,8 +8,7 @@
  */
 
 use Zend\Debug\Debug;
-use Zend\Permissions\Rbac\Rbac;
-use Zend\Permissions\Rbac\Role;
+use Zend\InputFilter\InputFilter;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -17,49 +16,75 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// instantiate new guest role
-$guestRole = new Role('guest');
-$guestRole->addPermission('article.show');
+// instantiate input filter
+$inputFilter = new InputFilter();
+$inputFilter->add(
+    [
+        'name'       => 'email',
+        'required'   => true,
+        'filters'    => [
+            [
+                'name' => 'StripTags',
+            ],
+        ],
+        'validators' => [
+            [
+                'name'    => 'EmailAddress',
+                'options' => [
+                    'message' => 'Dies ist keine E-Mail Adresse!'
+                ],
+            ]
+        ],
+    ]
+);
+$inputFilter->add(
+    [
+        'name'       => 'name',
+        'required'   => true,
+        'filters'    => [
+            [
+                'name' => 'StringTrim',
+            ],
+        ],
+        'validators' => [
+            [
+                'name'    => 'StringLength',
+                'options' => [
+                    'min'     => 6,
+                    'max'     => 32,
+                    'message' => 'Nur %min% bis %max% Zeichen erlaubt!'
+                ],
+            ]
+        ],
+    ]
+);
 
-// instantiate new editor role
-$editorRole = new Role('editor');
-$editorRole->addChild($guestRole);
-$editorRole->addPermission('article.edit');
+$invalidInputData = [
+    'email' => '<b>Nur Text</b>',
+    'name'  => ' Ralf ',
+];
 
-// instantiate new admin role
-$adminRole = new Role('admin');
-$adminRole->addChild($editorRole);
-$adminRole->addPermission('article.delete');
+$inputFilter->setData($invalidInputData);
 
-// instantiate new RBAC
-$rbac = new Rbac();
-$rbac->addRole($guestRole);
-$rbac->addRole($editorRole);
-$rbac->addRole($adminRole);
+$result   = $inputFilter->isValid();
+$values   = $inputFilter->getValues();
+$messages = $inputFilter->getMessages();
 
-// ask rights for guest role
-$guestArticleShow = $rbac->isGranted('guest', 'article.show');
-$guestArticleEdit = $rbac->isGranted('guest', 'article.edit');
-$guestArticleDelete = $rbac->isGranted('guest', 'article.delete');
+Debug::dump($result, 'Input filter result');
+Debug::dump($values, 'Input filter values');
+Debug::dump($messages, 'Input filter messages');
 
-Debug::dump($guestArticleShow, 'Guest article show');
-Debug::dump($guestArticleEdit, 'Guest article edit');
-Debug::dump($guestArticleDelete, 'Guest article delete');
+$validInputData = [
+    'email' => '<b>ralf@travello.com</b>',
+    'name'  => ' Ralf Eggert ',
+];
 
-// ask rights for editor role
-$editorArticleShow = $rbac->isGranted('editor', 'article.show');
-$editorArticleEdit = $rbac->isGranted('editor', 'article.edit');
-$editorArticleDelete = $rbac->isGranted('editor', 'article.delete');
+$inputFilter->setData($validInputData);
 
-Debug::dump($editorArticleShow, 'Editor article show');
-Debug::dump($editorArticleEdit, 'Editor article edit');
-Debug::dump($editorArticleDelete, 'Editor article delete');
+$result   = $inputFilter->isValid();
+$values   = $inputFilter->getValues();
+$messages = $inputFilter->getMessages();
 
-// ask rights for admin role
-$adminArticleShow = $rbac->isGranted('admin', 'article.show');
-$adminArticleEdit = $rbac->isGranted('admin', 'article.edit');
-$adminArticleDelete = $rbac->isGranted('admin', 'article.delete');
-
-Debug::dump($adminArticleShow, 'Admin article show');
-Debug::dump($adminArticleEdit, 'Admin article edit');
-Debug::dump($adminArticleDelete, 'Admin article delete');
+Debug::dump($result, 'Input filter result');
+Debug::dump($values, 'Input filter values');
+Debug::dump($messages, 'Input filter messages');

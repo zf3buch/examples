@@ -7,10 +7,9 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\Sql\Sql;
 use Zend\Debug\Debug;
-use Zend\Diactoros\Request;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\Uri;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -18,33 +17,35 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// instantiate uri
-$uri = new Uri('http://www.zendframeworkbuch.de/');
+// configure database
+$config = [
+    'driver'  => 'pdo',
+    'dsn'     => 'mysql:dbname=examples;host=localhost;charset=utf8',
+    'user'    => 'example-user',
+    'pass'    => 'geheim',
+];
 
-// instantiate request
-$request = new Request(
-    $uri,
-    'POST',
-    'php://memory',
-    [
-        'Content-Type' => 'application/json',
-    ]
-);
+// instantiate adapter
+$adapter = new Adapter($config);
 
-Debug::dump($request, 'Request object');
+// instantiate sql object
+$sql = new Sql($adapter);
 
-// instantiate client for demonstration
-//$client = new Client();
-//$response = $client->send($request);
+// build select
+$select = $sql->select();
+$select->from('pizza');
+$select->where->equalTo('name', 'Pizza Mista');
 
-/** @var Response $response */
-$response = new Response();
+// build sql string
+$sqlString = $sql->buildSqlString($select);
 
-// get data from response
-$statusCode = $response->getStatusCode();
-$headers    = $response->getHeaders();
-$body       = $response->getBody();
+// output sql string
+Debug::dump($sqlString, 'SQL String');
 
-Debug::dump($statusCode, 'Response status Code');
-Debug::dump($headers, 'Response headers');
-Debug::dump($body, 'Response body');
+// prepare and execute query
+$result = $adapter->query($sqlString)->execute();
+
+$currentResult = $result->current();
+
+// output result
+Debug::dump($currentResult, 'Current result');

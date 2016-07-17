@@ -8,9 +8,8 @@
  */
 
 use Zend\Debug\Debug;
-use Zend\I18n\Validator\Alpha;
-use Zend\Validator\CreditCard;
-use Zend\Validator\InArray;
+use Zend\Paginator\Adapter\ArrayAdapter;
+use Zend\Paginator\Paginator;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -18,26 +17,19 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// use Alpha validator
-$alphaValidator = new Alpha();
-$alphaResult    = $alphaValidator->isValid('P1ZZ4');
-$alphaMessages  = $alphaValidator->getMessages();
+// define some number
+$numbers = range(100, 999);
 
-Debug::dump($alphaResult, 'Alpha result');
-Debug::dump($alphaMessages, 'Alpha messages');
+// instantiate paginator
+$paginator = new Paginator(new ArrayAdapter($numbers));
+$paginator->setCurrentPageNumber(mt_rand(1, 40));
+$paginator->setItemCountPerPage(20);
 
-// use CreditCard filter
-$creditCardValidator = new CreditCard();
-$creditCardResult    = $creditCardValidator->isValid('4111111111111111');
-$creditCardMessages  = $creditCardValidator->getMessages();
+$currentItems = $paginator->getCurrentItems();
+$totalItemCount = $paginator->getTotalItemCount();
+$pages = $paginator->getPages();
 
-Debug::dump($creditCardResult, 'CreditCard result');
-Debug::dump($creditCardMessages, 'CreditCard messages');
-
-// use InArray filter
-$inArrayValidator = new InArray(['haystack' => ['red', 'green', 'white']]);
-$inArrayResult    = $inArrayValidator->isValid('blue');
-$inArrayMessages  = $inArrayValidator->getMessages();
-
-Debug::dump($inArrayResult, 'InArray result');
-Debug::dump($inArrayMessages, 'InArray messages');
+// output some data
+Debug::dump($currentItems, 'Current items');
+Debug::dump($totalItemCount, 'Total item count');
+Debug::dump($pages, 'Paginator pages');

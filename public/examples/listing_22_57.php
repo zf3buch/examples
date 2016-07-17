@@ -7,8 +7,9 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\View\Model\JsonModel;
-use Zend\View\Renderer\JsonRenderer;
+use Zend\Debug\Debug;
+use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\ServiceManager\ServiceManager;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -16,13 +17,19 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// create JsonModel and set variables
-$jsonModel = new JsonModel(['headline' => 'Happy welcome!']);
-$jsonModel->setVariable('name', 'Luigi');
-$jsonModel->setVariables(['list' => ['Foo', 'Bar', 'Baz']]);
+// configure service manager
+$serviceManager = new ServiceManager(
+    [
+        'factories'  => [
+            Customer\CustomerForm::class => InvokableFactory::class,
+            Customer\CustomerService::class => Customer\CustomerServiceFactory::class,
+        ],
+    ]
+);
 
-// prepare renderer
-$renderer = new JsonRenderer();
+// get customer form and service
+$customerForm    = $serviceManager->get(Customer\CustomerForm::class);
+$customerService = $serviceManager->get(Customer\CustomerService::class);
 
-// render and output template
-echo $renderer->render($jsonModel);
+Debug::dump($customerForm, 'Customer form');
+Debug::dump($customerService, 'Customer service');

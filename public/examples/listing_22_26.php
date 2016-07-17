@@ -8,13 +8,26 @@
  */
 
 // define application root for better file path definitions
+use Pizza\PizzaListener;
+use Pizza\PizzaService;
+use Zend\EventManager\EventManager;
+
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// load file content
-$fileName    = realpath(APPLICATION_ROOT . '/templates/listing_22_26.phtml');
-$fileContent = implode('', file($fileName));
+$eventManager = new EventManager();
 
-echo '<pre>' . htmlspecialchars($fileContent) . '</pre>';
+$pizzaListener = new PizzaListener();
+$pizzaListener->attach($eventManager);
+
+$pizzaService = new PizzaService();
+$pizzaService->setEventManager($eventManager);
+
+$pizzaData = [
+    'id'   => '123',
+    'name' => 'Pizza Salami',
+];
+
+$pizzaService->sendPizza($pizzaData);

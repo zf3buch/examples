@@ -7,8 +7,9 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Customer\CustomerEntity;
 use Zend\Debug\Debug;
+use Zend\Filter\Compress;
+use Zend\Filter\StaticFilter;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -16,25 +17,13 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// setup data
-$inputData = [
-    'id'        => '1',
-    'full_name' => 'Theo Tester',
-    'address'   => ['Am Testen 123', '12345', 'Testen'],
-];
+// use static filter
+$alphaResult           = StaticFilter::execute('P1ZZ4', 'Alpha');
+$stringToLowerResult   = StaticFilter::execute('PIZZA', 'StringToLower');
+$dashToCamelCaseResult = StaticFilter::execute(
+    'pizza-service', 'WordDashToCamelCase'
+);
 
-// instantiate customer entity
-$customer = new CustomerEntity();
-$customer->setId($inputData['id']);
-$customer->setFullName($inputData['full_name']);
-$customer->setAddress($inputData['address']);
-
-// initialize output data
-$outputData = [
-    'id'        => $customer->getId(),
-    'full_name' => $customer->getFullName(),
-    'address'   => $customer->getAddress(),
-];
-
-Debug::dump($customer, 'Customer entity');
-Debug::dump($outputData, 'Output data');
+Debug::dump($alphaResult, 'Result Alpha filter');
+Debug::dump($stringToLowerResult, 'Result StringToLower filter');
+Debug::dump($dashToCamelCaseResult, 'Result DashToCamelCase filter');

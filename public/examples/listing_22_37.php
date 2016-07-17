@@ -7,8 +7,8 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Customer\CustomerEntity;
 use Zend\Debug\Debug;
-use Zend\InputFilter\InputFilter;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -16,11 +16,25 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// instantiate address input filter
-$addressInputFilter = new InputFilter();
+// setup data
+$inputData = [
+    'id'        => '1',
+    'full_name' => 'Theo Tester',
+    'address'   => ['Am Testen 123', '12345', 'Testen'],
+];
 
-// instantiate customer input filter
-$customerInputFilter = new InputFilter();
-$customerInputFilter->add($addressInputFilter, 'address');
+// instantiate customer entity
+$customer = new CustomerEntity();
+$customer->setId($inputData['id']);
+$customer->setFullName($inputData['full_name']);
+$customer->setAddress($inputData['address']);
 
-Debug::dump($customerInputFilter->getInputs(), 'InputFilter input objects');
+// initialize output data
+$outputData = [
+    'id'        => $customer->getId(),
+    'full_name' => $customer->getFullName(),
+    'address'   => $customer->getAddress(),
+];
+
+Debug::dump($customer, 'Customer entity');
+Debug::dump($outputData, 'Output data');

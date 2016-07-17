@@ -7,10 +7,11 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Pizza\PizzaEntity;
 use Zend\Db\Adapter\Adapter;
-use Zend\Db\TableGateway\Feature\FeatureSet;
-use Zend\Db\TableGateway\Feature\MasterSlaveFeature;
-use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\ResultSet\HydratingResultSet;
+use Zend\Debug\Debug;
+use Zend\Hydrator\ClassMethods;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -26,13 +27,21 @@ $config = [
     'pass'   => 'geheim',
 ];
 
+// create result set prototype
+$resultSetPrototype = new HydratingResultSet(
+    new ClassMethods(), new PizzaEntity()
+);
+
 // instantiate adapter
-$masterAdapter = new Adapter($config);
-$slaveAdapter  = new Adapter($config);
+$adapter = new Adapter($config, null, $resultSetPrototype);
 
-// instantiate feature set
-$featureSet = new FeatureSet();
-$featureSet->addFeature(new MasterSlaveFeature($slaveAdapter));
+// generate SQL statement
+$sql = 'SELECT * FROM pizza';
 
-// instantiate table gateway instance
-$table = new TableGateway('pizza', $masterAdapter, $featureSet);
+// prepare and execute query
+$result = $adapter->query($sql, Adapter::QUERY_MODE_EXECUTE);
+
+$currentResult = $result->current();
+
+// output result
+Debug::dump($currentResult, 'Current result');

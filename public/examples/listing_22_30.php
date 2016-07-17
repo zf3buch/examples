@@ -7,10 +7,11 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Customer\CustomerEntity;
 use Zend\Debug\Debug;
-use Zend\Hydrator\ClassMethods;
-use Zend\Hydrator\Strategy\SerializableStrategy;
+use Zend\Form\Element\Submit;
+use Zend\Form\Element\Text;
+use Zend\Form\Element\Textarea;
+use Zend\Form\Form;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -18,27 +19,33 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// setup data
-$inputData = [
-    'id'        => '1',
-    'full_name' => 'Theo Tester',
-    'address'   =>
-        'a:3:{i:0;s:13:"Am Testen 123";i:1;s:5:"12345";i:2;s:6:"Testen";}'
-];
+// instantiate text element
+$name = new Text('name');
+$name->setLabel('Your Name');
+$name->setAttribute('class', 'my-class');
+$name->setAttribute('maxlength', 64);
 
-// instantiate customer entity
-$customer = new CustomerEntity();
+// instantiate text area
+$comment = new Textarea('comment');
+$comment->setLabel('Your Comment');
+$comment->setAttribute('class', 'another-class');
+$comment->setAttributes(['rows' => 4, 'cols' => '64']);
 
-// instantiate hydrator
-$hydrator = new ClassMethods();
-$hydrator->addStrategy(
-    'address',
-    new SerializableStrategy('PhpSerialize')
-);
-$hydrator->hydrate($inputData, $customer);
+// instantiate submit button
+$submit = new Submit('submit');
+$submit->setValue('Save Comment');
+$submit->setAttribute('id', 'submit');
 
-// get output data
-$outputData = $hydrator->extract($customer);
+// instantiate form and add elements
+$form = new Form();
+$form->setAttribute('action', '/form/sent');
+$form->add($name);
+$form->add($comment);
+$form->add($submit);
 
-Debug::dump($customer, 'Customer entity');
-Debug::dump($outputData, 'Output data');
+$formAttributes = $form->getAttributes();
+$formElements = $form->getElements();
+
+// instantiate form view helper directly
+Debug::dump($formAttributes, 'Form attributes');
+Debug::dump($formElements, 'Form elements');

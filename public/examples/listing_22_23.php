@@ -8,7 +8,7 @@
  */
 
 use Zend\Debug\Debug;
-use Zend\Form\Factory;
+use Zend\Diactoros\ServerRequestFactory;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -16,61 +16,18 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-$formArray = [
-    'attributes' => [
-        'action' => '/form/sent',
-    ],
-    'elements'   => [
-        [
-            'spec' => [
-                'name'       => 'name',
-                'type'       => 'text',
-                'options'    => [
-                    'label' => 'Your Name',
-                ],
-                'attributes' => [
-                    'class'     => 'my-class',
-                    'maxlength' => '64',
-                ],
-            ],
-        ],
-        [
-            'spec' => [
-                'name'       => 'comment',
-                'type'       => 'textarea',
-                'options'    => [
-                    'label' => 'Your Comment',
-                ],
-                'attributes' => [
-                    'class' => 'another-class',
-                    'rows'  => '4',
-                    'cols'  => '64',
-                ],
-            ],
-        ],
-        [
-            'spec' => [
-                'name'       => 'submit',
-                'type'       => 'submit',
-                'options'    => [
-                    'value' => 'Save Comment',
-                ],
-                'attributes' => [
-                    'id' => 'submit',
-                ],
-            ],
-        ],
-    ],
-];
+// instantiate server request
+$request = ServerRequestFactory::fromGlobals(
+    $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
+);
 
-// instantiate form factory
-$factory = new Factory();
+// get data from request
+$queryParams   = $request->getQueryParams();
+$cookieParams  = $request->getCookieParams();
+$uploadedFiles = $request->getUploadedFiles();
+$method        = $request->getMethod();
 
-// build form with configuration array
-$form = $factory->createForm($formArray);
-
-$formAttributes = $form->getAttributes();
-$formElements   = $form->getElements();
-
-Debug::dump($formAttributes, 'Form attributes');
-Debug::dump($formElements, 'Form elements');
+Debug::dump($queryParams, 'Query params');
+Debug::dump($cookieParams, 'Cookie params');
+Debug::dump($uploadedFiles, 'Uploaded files');
+Debug::dump($method, 'HTTP method');

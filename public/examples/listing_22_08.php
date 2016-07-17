@@ -7,7 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Db\Adapter\Adapter;
+use Zend\Config\Factory;
 use Zend\Debug\Debug;
 
 // define application root for better file path definitions
@@ -16,20 +16,17 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// configure database
-$config = [
-    'driver' => 'pdo',
-    'dsn'    => 'mysql:dbname=examples;host=localhost;charset=utf8',
-    'user'   => 'example-user',
-    'pass'   => 'geheim',
-];
+// Load config data from a directory
+$mergedConfig = Factory::fromFiles([
+    APPLICATION_ROOT . '/config/autoload/session.global.php',
+    APPLICATION_ROOT . '/config/autoload/some.config.ini'
+]);
 
-// instantiate adapter
-$adapter = new Adapter($config);
+Debug::dump($mergedConfig, 'Merged config with file array');
 
-// test adapter
-$platformName  = $adapter->getPlatform()->getName();
-$currentSchema = $adapter->getCurrentSchema();
+// Load config data with glob
+$mergedConfig = Factory::fromFiles(
+    glob(APPLICATION_ROOT . '/config/autoload/*')
+);
 
-Debug::dump($platformName, 'Platform name');
-Debug::dump($currentSchema, 'Current table schema');
+Debug::dump($mergedConfig, 'Merged config with glob');

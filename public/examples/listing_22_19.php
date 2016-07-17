@@ -7,9 +7,15 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\Sql\Ddl\Column\Datetime;
+use Zend\Db\Sql\Ddl\Column\Integer;
+use Zend\Db\Sql\Ddl\Column\Varchar;
+use Zend\Db\Sql\Ddl\Constraint\PrimaryKey;
+use Zend\Db\Sql\Ddl\CreateTable;
+use Zend\Db\Sql\Ddl\DropTable;
+use Zend\Db\Sql\Sql;
 use Zend\Debug\Debug;
-use Zend\Filter\Compress;
-use Zend\Filter\StaticFilter;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -17,13 +23,51 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// use static filter
-$alphaResult           = StaticFilter::execute('P1ZZ4', 'Alpha');
-$stringToLowerResult   = StaticFilter::execute('PIZZA', 'StringToLower');
-$dashToCamelCaseResult = StaticFilter::execute(
-    'pizza-service', 'WordDashToCamelCase'
-);
+// configure database
+$config = [
+    'driver' => 'pdo',
+    'dsn'    => 'mysql:dbname=examples;host=localhost;charset=utf8',
+    'user'   => 'example-user',
+    'pass'   => 'geheim',
+];
 
-Debug::dump($alphaResult, 'Result Alpha filter');
-Debug::dump($stringToLowerResult, 'Result StringToLower filter');
-Debug::dump($dashToCamelCaseResult, 'Result DashToCamelCase filter');
+// instantiate adapter
+$adapter = new Adapter($config);
+
+// instantiate sql object
+$sql = new Sql($adapter);
+
+// create new table
+$createTable = new CreateTable('pizza_temp');
+$createTable->addColumn(new Integer('id'));
+$createTable->addColumn(new Varchar('name', 64));
+$createTable->addColumn(new Datetime('date'));
+$createTable->addConstraint(new PrimaryKey('id'));
+
+// build sql string
+$sqlString = $sql->buildSqlString($createTable);
+
+// output sql string
+Debug::dump($sqlString, 'SQL string');
+
+// prepare and execute query
+$result = $adapter->query($sqlString)->execute();
+
+// prepare and execute query
+$result = $adapter->query('SHOW TABLES')->execute();
+
+foreach ($result as $table) {
+    Debug::dump($table, 'Tablename');
+}
+
+// drop new table
+$dropTable = new DropTable('pizza_temp');
+
+// build sql string
+$sqlString = $sql->buildSqlString($dropTable);
+
+// output sql string
+Debug::dump($sqlString, 'SQL String');
+
+// prepare and execute query
+$result = $adapter->query($sqlString)->execute();

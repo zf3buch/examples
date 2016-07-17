@@ -7,8 +7,12 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Config\Factory;
-use Zend\Debug\Debug;
+use Zend\Code\Generator\ClassGenerator;
+use Zend\Code\Generator\DocBlock\Tag\ParamTag;
+use Zend\Code\Generator\DocBlock\Tag\ReturnTag;
+use Zend\Code\Generator\DocBlockGenerator;
+use Zend\Code\Generator\MethodGenerator;
+use Zend\Code\Generator\PropertyGenerator;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -16,18 +20,51 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// Load config data from a directory
-$mergedConfig = Factory::fromFiles([
-    APPLICATION_ROOT . '/config/autoload/session.global.php',
-    APPLICATION_ROOT . '/config/autoload/some.config.ini'
-]);
+// generate class doc block
+$classDocBlock = DocBlockGenerator::fromArray(
+    [
+        'shortDescription' => 'Sample generated class',
+        'longDescription'  => 'This is a generated class generated.',
+        'tags'             => [
+            [
+                'name'        => 'author',
+                'description' => 'Ralf Eggert <ralf@travello.de>',
+            ],
+        ],
+    ]
+);
 
-// set output file
-$cacheFile = APPLICATION_ROOT . '/data/cache/config.json';
+// generate method
+$method = MethodGenerator::fromArray(
+    [
+        'name'       => 'setValue',
+        'parameters' => ['value'],
+        'body'       => '$this->value = $value;' . "\n"
+            . 'return $this;',
+        'docblock'   => DocBlockGenerator::fromArray(
+            [
+                'shortDescription' => 'Set the value property',
+                'longDescription'  => null,
+                'tags'             => [
+                    new ParamTag('value', ['string']),
+                    new ReturnTag(['string']),
+                ],
+            ]
+        ),
+    ]
+);
 
-// Write config data to file
-Factory::toFile($cacheFile, $mergedConfig);
+// generate class
+$class = new ClassGenerator();
+$class->setName('SampleClass');
+$class->setDocBlock($classDocBlock);
+$class->addConstant('FIXED',  true);
+$class->addProperties(
+    [
+        ['value', null, PropertyGenerator::FLAG_PRIVATE],
+    ]
+);
+$class->addMethods([$method]);
 
-$fileCheck = file_exists($cacheFile);
-
-Debug::dump($fileCheck, 'File check');
+// output class
+echo '<pre>' . $class->generate() . '</pre>';

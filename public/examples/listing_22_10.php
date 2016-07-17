@@ -7,8 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\Sql\Sql;
+use Zend\Config\Config;
 use Zend\Debug\Debug;
 
 // define application root for better file path definitions
@@ -17,35 +16,11 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// configure database
-$config = [
-    'driver'  => 'pdo',
-    'dsn'     => 'mysql:dbname=examples;host=localhost;charset=utf8',
-    'user'    => 'example-user',
-    'pass'    => 'geheim',
-];
+// instantiate config
+$configObject      = new Config(['foo' => 'bar'], true);
+$configObject->bar = 'foo';
 
-// instantiate adapter
-$adapter = new Adapter($config);
+$configArray = $configObject->toArray();
 
-// instantiate sql object
-$sql = new Sql($adapter);
-
-// build select
-$select = $sql->select();
-$select->from('pizza');
-$select->where->equalTo('name', 'Pizza Mista');
-
-// build sql string
-$sqlString = $sql->buildSqlString($select);
-
-// output sql string
-Debug::dump($sqlString, 'SQL String');
-
-// prepare and execute query
-$result = $adapter->query($sqlString)->execute();
-
-$currentResult = $result->current();
-
-// output result
-Debug::dump($currentResult, 'Current result');
+Debug::dump($configObject, 'Config object');
+Debug::dump($configArray, 'Config array');
