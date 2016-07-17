@@ -13,6 +13,7 @@ use Zend\Debug\Debug;
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventInterface;
 use Zend\EventManager\EventManagerInterface;
+use Zend\Math\Rand;
 
 /**
  * Class PizzaListener
@@ -63,6 +64,12 @@ class PizzaListener extends AbstractListenerAggregate
      */
     public function bakePizza(EventInterface $e)
     {
-        Debug::dump('Bake pizza "' . $e->getParam('data')['name'] . '"');
+        if (Rand::getBoolean()) {
+            Debug::dump('Bake pizza "' . $e->getParam('data')['name'] . '"');
+        } else {
+            Debug::dump('Burned pizza "' . $e->getParam('data')['name'] . '"');
+
+            $e->stopPropagation();
+        }
     }
 }
