@@ -26,7 +26,7 @@ class RandomNumber
     /**
      * @return int
      */
-    public function get()
+    static public function get()
     {
         return Rand::getInteger(10000, 99999);
     }
