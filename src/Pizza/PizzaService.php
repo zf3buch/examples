@@ -29,6 +29,8 @@ class PizzaService
      */
     public function setEventManager(EventManagerInterface $eventManager)
     {
+        $eventManager->setIdentifiers([__CLASS__, get_class($this)]);
+
         $this->eventManager = $eventManager;
     }
 
