@@ -66,5 +66,7 @@ $class->addProperties(
 );
 $class->addMethods([$method]);
 
+$generatedClass = $class->generate();
+
 // output class
-echo '<pre>' . $class->generate() . '</pre>';
+echo '<pre>' . $generatedClass . '</pre>';
