@@ -21,19 +21,19 @@ require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // instantiate text element
 $name = new Text('name');
-$name->setLabel('Your Name');
+$name->setLabel('Dein Name');
 $name->setAttribute('class', 'my-class');
 $name->setAttribute('maxlength', 64);
 
 // instantiate text area
 $comment = new Textarea('comment');
-$comment->setLabel('Your Comment');
+$comment->setLabel('Dein Kommentar');
 $comment->setAttribute('class', 'another-class');
 $comment->setAttributes(['rows' => 4, 'cols' => '64']);
 
 // instantiate submit button
 $submit = new Submit('submit');
-$submit->setValue('Save Comment');
+$submit->setValue('Kommentar speichern');
 $submit->setAttribute('id', 'submit');
 
 // instantiate form and add elements
