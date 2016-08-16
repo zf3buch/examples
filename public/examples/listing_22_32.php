@@ -26,7 +26,7 @@ $formArray = [
                 'name'       => 'name',
                 'type'       => 'text',
                 'options'    => [
-                    'label' => 'Your Name',
+                    'label' => 'Dein Name',
                 ],
                 'attributes' => [
                     'class'     => 'my-class',
@@ -39,7 +39,7 @@ $formArray = [
                 'name'       => 'comment',
                 'type'       => 'textarea',
                 'options'    => [
-                    'label' => 'Your Comment',
+                    'label' => 'Dein Kommentar',
                 ],
                 'attributes' => [
                     'class' => 'another-class',
@@ -53,7 +53,7 @@ $formArray = [
                 'name'       => 'submit',
                 'type'       => 'submit',
                 'options'    => [
-                    'value' => 'Save Comment',
+                    'value' => 'Kommentar speichern',
                 ],
                 'attributes' => [
                     'id' => 'submit',
