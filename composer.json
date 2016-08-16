@@ -52,7 +52,9 @@
   },
   "autoload": {
     "psr-4": {
+      "Book\\": "src/Book",
       "Customer\\": "src/Customer",
+      "DesignPatternExamples\\": "src/DesignPatternExamples",
       "Pizza\\": "src/Pizza"
     }
   }
