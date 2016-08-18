@@ -48,7 +48,10 @@
     "zendframework/zend-stratigility": "^1.2",
     "zendframework/zend-test": "^3.0",
     "zendframework/zend-validator": "^2.8",
-    "zendframework/zend-view": "^2.8"
+    "zendframework/zend-view": "^2.8",
+    "twitter/bootstrap": "~3.3",
+    "fortawesome/font-awesome": "~4.4",
+    "frameworks/jquery": "~1.11"
   },
   "autoload": {
     "psr-4": {
@@ -56,12 +59,17 @@
       "Book\\": "src/Book",
       "Customer\\": "src/Customer",
       "DesignPatternExamples\\": "src/DesignPatternExamples",
-      "Pizza\\": "src/Pizza"
+      "Pizza\\": "src/Pizza",
+      "Scripts\\": "script/"
     }
   },
   "autoload-dev": {
     "psr-4": {
       "BasketTest\\": "tests/Basket/"
     }
+  },
+  "scripts": {
+    "serve": "php -S 0.0.0.0:8080 -t public/ public/index.php",
+    "post-update-cmd": "Scripts\\Composer::postUpdate"
   }
 }
