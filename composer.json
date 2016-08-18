@@ -52,10 +52,16 @@
   },
   "autoload": {
     "psr-4": {
+      "Basket\\": "src/Basket",
       "Book\\": "src/Book",
       "Customer\\": "src/Customer",
       "DesignPatternExamples\\": "src/DesignPatternExamples",
       "Pizza\\": "src/Pizza"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "BasketTest\\": "tests/Basket/"
     }
   }
 }
