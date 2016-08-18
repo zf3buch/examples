@@ -19,10 +19,10 @@ $fileName    = realpath(
 );
 $fileRows = file($fileName);
 
-for ($count = 22; $count <= 50; $count++) {
+for ($count = 22; $count <= 60; $count++) {
     unset($fileRows[$count]);
 }
-for ($count = 69; $count <= 77; $count++) {
+for ($count = 79; $count <= 87; $count++) {
     unset($fileRows[$count]);
 }
 

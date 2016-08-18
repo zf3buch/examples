@@ -38,6 +38,7 @@ class PizzaBasketTest extends PHPUnit_Framework_TestCase
     public function testInitialCount()
     {
         $this->assertEquals(0, $this->pizzaBasket->countPizzas());
+        $this->assertEquals([], $this->pizzaBasket->getPizzas());
     }
 
     public function testAddThreePizzas()
@@ -46,7 +47,16 @@ class PizzaBasketTest extends PHPUnit_Framework_TestCase
         $this->pizzaBasket->addPizza(2, 'Pizza Salami');
         $this->pizzaBasket->addPizza(3, 'Pizza Garbage');
 
+        $expectedPizzas = [
+            1 => 'Pizza Mista',
+            2 => 'Pizza Salami',
+            3 => 'Pizza Garbage',
+        ];
+
         $this->assertEquals(3, $this->pizzaBasket->countPizzas());
+        $this->assertEquals(
+            $expectedPizzas, $this->pizzaBasket->getPizzas()
+        );
     }
 
     /**

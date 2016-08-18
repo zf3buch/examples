@@ -16,7 +16,7 @@ use DomainException;
  *
  * @package Basket
  */
-class PizzaBasket
+class PizzaBasket implements PizzaBasketInterface
 {
     /**
      * @var array
@@ -44,5 +44,13 @@ class PizzaBasket
     public function countPizzas()
     {
         return count($this->list);
+    }
+
+    /**
+     * @return array
+     */
+    public function getPizzas()
+    {
+        return $this->list;
     }
 }
