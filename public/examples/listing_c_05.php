@@ -22,7 +22,7 @@ $fileRows = file($fileName);
 for ($count = 22; $count <= 60; $count++) {
     unset($fileRows[$count]);
 }
-for ($count = 79; $count <= 87; $count++) {
+for ($count = 82; $count <= 90; $count++) {
     unset($fileRows[$count]);
 }
 
