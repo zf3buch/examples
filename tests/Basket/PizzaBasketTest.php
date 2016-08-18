@@ -60,21 +60,25 @@ class PizzaBasketTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param $id
+     * @param $name
+     * @param $count
+     *
      * @dataProvider providePizzas
      */
-    public function testAddPizzasWithDataProvider($id, $name)
+    public function testAddPizzasWithDataProvider($id, $name, $count)
     {
         $this->pizzaBasket->addPizza($id, $name);
 
-        $this->assertEquals(1, $this->pizzaBasket->countPizzas());
+        $this->assertEquals($count, $this->pizzaBasket->countPizzas());
     }
 
     public function providePizzas()
     {
         return [
-            [1, 'Pizza Mista'],
-            [2, 'Pizza Salami'],
-            [3, 'Pizza Garbage'],
+            [1, 'Pizza Mista', 1],
+            [2, 'Pizza Salami', 1],
+            [3, 'Pizza Garbage', 1],
         ];
     }
 
