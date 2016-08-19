@@ -34,31 +34,6 @@ $acl->addRole($adminRole, $editorRole);
 $acl->addResource($articleResource);
 $acl->allow($guestRole, $articleResource, 'show');
 $acl->allow($editorRole, $articleResource, 'edit');
-$acl->allow($adminRole, $articleResource, null);
+$acl->allow($adminRole, $articleResource, 'delete');
 
-// ask rights for guest role
-$guestArticleShow = $acl->isAllowed('guest', 'article', 'show');
-$guestArticleEdit = $acl->isAllowed('guest', 'article', 'edit');
-$guestArticleDelete = $acl->isAllowed('guest', 'article', 'delete');
-
-Debug::dump($guestArticleShow, 'Guest article show');
-Debug::dump($guestArticleEdit, 'Guest article edit');
-Debug::dump($guestArticleDelete, 'Guest article delete');
-
-// ask rights for editor role
-$editorArticleShow = $acl->isAllowed('editor', 'article', 'show');
-$editorArticleEdit = $acl->isAllowed('editor', 'article', 'edit');
-$editorArticleDelete = $acl->isAllowed('editor', 'article', 'delete');
-
-Debug::dump($editorArticleShow, 'Editor article show');
-Debug::dump($editorArticleEdit, 'Editor article edit');
-Debug::dump($editorArticleDelete, 'Editor article delete');
-
-// ask rights for admin role
-$adminArticleShow = $acl->isAllowed('admin', 'article', 'show');
-$adminArticleEdit = $acl->isAllowed('admin', 'article', 'edit');
-$adminArticleDelete = $acl->isAllowed('admin', 'article', 'delete');
-
-Debug::dump($adminArticleShow, 'Admin article show');
-Debug::dump($adminArticleEdit, 'Admin article edit');
-Debug::dump($adminArticleDelete, 'Admin article delete');
+Debug::dump($adminRole, 'Admin role');

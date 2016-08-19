@@ -1,13 +1,1 @@
-<?php
-$date = new DateTime('now');
-
-echo $this->dateFormat(
-    $date, IntlDateFormatter::LONG, IntlDateFormatter::LONG
-);
-
-$date = strtotime('2015-12-16 08:24:43');
-
-echo $this->dateFormat(
-    $date, IntlDateFormatter::LONG, IntlDateFormatter::LONG
-);
-
+<?= $this->translate('message_saving_successful');

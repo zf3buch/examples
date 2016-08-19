@@ -8,7 +8,7 @@
  */
 
 use Zend\Debug\Debug;
-use Zend\Validator\ValidatorChain;
+use Zend\Validator\StaticValidator;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -16,14 +16,15 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// create validator chain
-$validatorChain = new ValidatorChain();
-$validatorChain->attachByName('Alpha');
-$validatorChain->attachByName('StringLength', ['min' => 6, 'max' => 32]);
-$validatorChain->attachByName('PostCode');
+// use Alpha validator
+$alphaResult      = StaticValidator::execute('P1ZZ4', 'Alpha');
+$creditCardResult = StaticValidator::execute(
+    '4111111111111111', 'CreditCard'
+);
+$inArrayResult    = StaticValidator::execute(
+    'blue', 'InArray', ['haystack' => ['red', 'green', 'white']]
+);
 
-$result   = $validatorChain->isValid('P1zz4');
-$messages = $validatorChain->getMessages();
-
-Debug::dump($result, 'Validator chain result');
-Debug::dump($messages, 'Validator chain messages');
+Debug::dump($alphaResult, 'Alpha result');
+Debug::dump($creditCardResult, 'CreditCard result');
+Debug::dump($inArrayResult, 'InArray result');

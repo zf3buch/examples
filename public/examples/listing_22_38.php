@@ -9,7 +9,6 @@
 
 use Customer\CustomerEntity;
 use Zend\Debug\Debug;
-use Zend\Hydrator\ClassMethods;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -26,13 +25,16 @@ $inputData = [
 
 // instantiate customer entity
 $customer = new CustomerEntity();
+$customer->setId($inputData['id']);
+$customer->setFullName($inputData['full_name']);
+$customer->setAddress($inputData['address']);
 
-// instantiate hydrator
-$hydrator = new ClassMethods();
-$hydrator->hydrate($inputData, $customer);
-
-// get output data
-$outputData = $hydrator->extract($customer);
+// initialize output data
+$outputData = [
+    'id'        => $customer->getId(),
+    'full_name' => $customer->getFullName(),
+    'address'   => $customer->getAddress(),
+];
 
 Debug::dump($customer, 'Customer entity');
 Debug::dump($outputData, 'Output data');

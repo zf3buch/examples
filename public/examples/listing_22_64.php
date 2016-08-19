@@ -8,7 +8,9 @@
  */
 
 use Zend\Debug\Debug;
-use Zend\Validator\StaticValidator;
+use Zend\I18n\Validator\Alpha;
+use Zend\Validator\CreditCard;
+use Zend\Validator\InArray;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -17,14 +19,25 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
 // use Alpha validator
-$alphaResult      = StaticValidator::execute('P1ZZ4', 'Alpha');
-$creditCardResult = StaticValidator::execute(
-    '4111111111111111', 'CreditCard'
-);
-$inArrayResult    = StaticValidator::execute(
-    'blue', 'InArray', ['haystack' => ['red', 'green', 'white']]
-);
+$alphaValidator = new Alpha();
+$alphaResult    = $alphaValidator->isValid('P1ZZ4');
+$alphaMessages  = $alphaValidator->getMessages();
 
 Debug::dump($alphaResult, 'Alpha result');
+Debug::dump($alphaMessages, 'Alpha messages');
+
+// use CreditCard filter
+$creditCardValidator = new CreditCard();
+$creditCardResult    = $creditCardValidator->isValid('4111111111111111');
+$creditCardMessages  = $creditCardValidator->getMessages();
+
 Debug::dump($creditCardResult, 'CreditCard result');
+Debug::dump($creditCardMessages, 'CreditCard messages');
+
+// use InArray filter
+$inArrayValidator = new InArray(['haystack' => ['red', 'green', 'white']]);
+$inArrayResult    = $inArrayValidator->isValid('blue');
+$inArrayMessages  = $inArrayValidator->getMessages();
+
 Debug::dump($inArrayResult, 'InArray result');
+Debug::dump($inArrayMessages, 'InArray messages');

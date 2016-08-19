@@ -7,10 +7,11 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\TableGateway\TableGateway;
 use Zend\Debug\Debug;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Resource\GenericResource;
-use Zend\Permissions\Acl\Role\GenericRole;
+use Zend\Paginator\Adapter\DbTableGateway;
+use Zend\Paginator\Paginator;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -18,22 +19,34 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// instantiate roles
-$guestRole = new GenericRole('guest');
-$editorRole = new GenericRole('editor');
-$adminRole = new GenericRole('admin');
+// configure database
+$config = [
+    'driver' => 'pdo',
+    'dsn'    => 'mysql:dbname=examples;host=localhost;charset=utf8',
+    'user'   => 'example-user',
+    'pass'   => 'geheim',
+];
 
-// instantiate resources
-$articleResource = new GenericResource('article');
+// instantiate adapter
+$dbAdapter = new Adapter($config);
 
-// instantiate new ACL
-$acl = new Acl();
-$acl->addRole($guestRole);
-$acl->addRole($editorRole, $guestRole);
-$acl->addRole($adminRole, $editorRole);
-$acl->addResource($articleResource);
-$acl->allow($guestRole, $articleResource, 'show');
-$acl->allow($editorRole, $articleResource, 'edit');
-$acl->allow($adminRole, $articleResource, 'delete');
+// instantiate table gateway
+$tableGateway = new TableGateway('pizza', $dbAdapter);
 
-Debug::dump($adminRole, 'Admin role');
+// configure paginator adapter
+$paginatorAdapter = new DbTableGateway($tableGateway, null, 'name ASC');
+
+// instantiate paginator
+$paginator = new Paginator($paginatorAdapter);
+$paginator->setItemCountPerPage(3);
+
+// loop through elements
+for ($page = 1; $page <= 6; $page++) {
+    $paginator->setCurrentPageNumber($page);
+
+    Debug::dump('Page ' . $page);
+
+    foreach ($paginator->getCurrentItems() as $currentItem) {
+        Debug::dump($currentItem);
+    }
+}

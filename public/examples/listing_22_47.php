@@ -7,14 +7,20 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
+use Zend\InputFilter\InputFilter;
+
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// load file content
-$fileName = realpath(APPLICATION_ROOT . '/modules/Application.php');
-$fileContent = implode('', file($fileName));
+// instantiate address input filter
+$addressInputFilter = new InputFilter();
 
-echo '<pre>' . htmlspecialchars($fileContent) . '</pre>';
+// instantiate customer input filter
+$customerInputFilter = new InputFilter();
+$customerInputFilter->add($addressInputFilter, 'address');
+
+Debug::dump($customerInputFilter->getInputs(), 'InputFilter input objects');

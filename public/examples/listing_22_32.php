@@ -8,7 +8,11 @@
  */
 
 use Zend\Debug\Debug;
-use Zend\Form\Factory;
+use Zend\Form\Element\Submit;
+use Zend\Form\Element\Text;
+use Zend\Form\Element\Textarea;
+use Zend\Form\Fieldset;
+use Zend\Form\Form;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -16,61 +20,37 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-$formArray = [
-    'attributes' => [
-        'action' => '/form/sent',
-    ],
-    'elements'   => [
-        [
-            'spec' => [
-                'name'       => 'name',
-                'type'       => 'text',
-                'options'    => [
-                    'label' => 'Dein Name',
-                ],
-                'attributes' => [
-                    'class'     => 'my-class',
-                    'maxlength' => '64',
-                ],
-            ],
-        ],
-        [
-            'spec' => [
-                'name'       => 'comment',
-                'type'       => 'textarea',
-                'options'    => [
-                    'label' => 'Dein Kommentar',
-                ],
-                'attributes' => [
-                    'class' => 'another-class',
-                    'rows'  => '4',
-                    'cols'  => '64',
-                ],
-            ],
-        ],
-        [
-            'spec' => [
-                'name'       => 'submit',
-                'type'       => 'submit',
-                'options'    => [
-                    'value' => 'Kommentar speichern',
-                ],
-                'attributes' => [
-                    'id' => 'submit',
-                ],
-            ],
-        ],
-    ],
-];
+// instantiate text element
+$name = new Text('name');
+$name->setLabel('Dein Name');
+$name->setAttribute('class', 'my-class');
+$name->setAttribute('maxlength', 64);
 
-// instantiate form factory
-$factory = new Factory();
+// instantiate text area
+$comment = new Textarea('comment');
+$comment->setLabel('Dein Kommentar');
+$comment->setAttribute('class', 'another-class');
+$comment->setAttributes(['rows' => 4, 'cols' => '64']);
 
-// build form with configuration array
-$form = $factory->createForm($formArray);
+// instantiate fieldset
+$fieldset = new Fieldset('data');
+$fieldset->setLabel('Your Data');
+$fieldset->add($name);
+$fieldset->add($comment);
 
-$formAttributes = $form->getAttributes();
-$formElements   = $form->getElements();
+// instantiate submit button
+$submit = new Submit('submit');
+$submit->setValue('Kommentar speichern');
+$submit->setAttribute('id', 'submit');
 
-Debug::dump($formAttributes, 'Form attributes');
-Debug::dump($formElements, 'Form elements');
+// instantiate form and add elements
+$form = new Form();
+$form->setAttribute('action', '/form/sent');
+$form->add($fieldset);
+$form->add($submit);
+
+$fieldsets = $form->getFieldsets();
+$elements = $form->getElements();
+
+Debug::dump($fieldsets, 'Form fieldsets');
+Debug::dump($elements, 'Form elements');

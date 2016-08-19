@@ -11,6 +11,7 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\TableGateway\Feature\FeatureSet;
 use Zend\Db\TableGateway\Feature\MasterSlaveFeature;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Debug\Debug;
 
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
@@ -36,3 +37,5 @@ $featureSet->addFeature(new MasterSlaveFeature($slaveAdapter));
 
 // instantiate table gateway instance
 $table = new TableGateway('pizza', $masterAdapter, $featureSet);
+
+Debug::dump($table->getTable());

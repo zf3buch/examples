@@ -7,10 +7,8 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use Zend\Db\Adapter\Adapter;
-use Zend\Db\TableGateway\TableGateway;
 use Zend\Debug\Debug;
-use Zend\Paginator\Adapter\DbTableGateway;
+use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\Paginator\Paginator;
 
 // define application root for better file path definitions
@@ -19,34 +17,19 @@ define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
-// configure database
-$config = [
-    'driver' => 'pdo',
-    'dsn'    => 'mysql:dbname=examples;host=localhost;charset=utf8',
-    'user'   => 'example-user',
-    'pass'   => 'geheim',
-];
-
-// instantiate adapter
-$dbAdapter = new Adapter($config);
-
-// instantiate table gateway
-$tableGateway = new TableGateway('pizza', $dbAdapter);
-
-// configure paginator adapter
-$paginatorAdapter = new DbTableGateway($tableGateway, null, 'name ASC');
+// define some number
+$numbers = range(100, 999);
 
 // instantiate paginator
-$paginator = new Paginator($paginatorAdapter);
-$paginator->setItemCountPerPage(3);
+$paginator = new Paginator(new ArrayAdapter($numbers));
+$paginator->setCurrentPageNumber(mt_rand(1, 40));
+$paginator->setItemCountPerPage(20);
 
-// loop through elements
-for ($page = 1; $page <= 6; $page++) {
-    $paginator->setCurrentPageNumber($page);
+$currentItems = $paginator->getCurrentItems();
+$totalItemCount = $paginator->getTotalItemCount();
+$pages = $paginator->getPages();
 
-    Debug::dump('Page ' . $page);
-
-    foreach ($paginator->getCurrentItems() as $currentItem) {
-        Debug::dump($currentItem);
-    }
-}
+// output some data
+Debug::dump($currentItems, 'Current items');
+Debug::dump($totalItemCount, 'Total item count');
+Debug::dump($pages, 'Paginator pages');

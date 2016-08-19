@@ -7,17 +7,44 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Debug\Debug;
+use Zend\Navigation\Navigation;
+
 // define application root for better file path definitions
 define('APPLICATION_ROOT', realpath(__DIR__ . '/../..'));
 
 // setup autoloading from composer
 require_once APPLICATION_ROOT . '/vendor/autoload.php';
 
+// setup pages
+$pages = [
+    'first'  => [
+        'type'  => 'uri',
+        'label' => 'First',
+        'uri'   => '#',
+        'pages' => [
+            'a' => [
+                'type'  => 'uri',
+                'label' => 'A',
+                'uri'   => '#',
+            ],
+            'b' => [
+                'type'  => 'uri',
+                'label' => 'b',
+                'uri'   => '#',
+            ],
+        ],
+    ],
+    'second' => [
+        'type'  => 'uri',
+        'label' => 'Second',
+        'uri'   => '#',
+    ],
+];
 
-// load file content
-$fileName = realpath(
-    APPLICATION_ROOT . '/templates/listing_22_50.phtml'
-);
-$fileContent = implode('', file($fileName));
+// instantiate navigation
+$navigation = new Navigation($pages);
+$pages = $navigation->getPages();
 
-echo '<pre>' . htmlspecialchars($fileContent) . '</pre>';
+// output some data
+Debug::dump($pages, 'Navigation pages');

@@ -1,9 +1,1 @@
-<?= $this->form()->openTag($this->myForm); ?>
-<div class="well">
-<?= $this->formRow($this->myForm->get('name')); ?>
-<?= $this->formRow($this->myForm->get('comment')); ?>
-</div>
-<div class="form-actions">
-<?= $this->formRow($this->myForm->get('submit')); ?>
-</div>
-<?= $this->form()->closeTag();
+<?= $this->form($this->myForm); ?>

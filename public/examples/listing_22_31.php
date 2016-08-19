@@ -11,7 +11,6 @@ use Zend\Debug\Debug;
 use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
-use Zend\Form\Fieldset;
 use Zend\Form\Form;
 
 // define application root for better file path definitions
@@ -32,12 +31,6 @@ $comment->setLabel('Dein Kommentar');
 $comment->setAttribute('class', 'another-class');
 $comment->setAttributes(['rows' => 4, 'cols' => '64']);
 
-// instantiate fieldset
-$fieldset = new Fieldset('data');
-$fieldset->setLabel('Your Data');
-$fieldset->add($name);
-$fieldset->add($comment);
-
 // instantiate submit button
 $submit = new Submit('submit');
 $submit->setValue('Kommentar speichern');
@@ -46,11 +39,13 @@ $submit->setAttribute('id', 'submit');
 // instantiate form and add elements
 $form = new Form();
 $form->setAttribute('action', '/form/sent');
-$form->add($fieldset);
+$form->add($name);
+$form->add($comment);
 $form->add($submit);
 
-$fieldsets = $form->getFieldsets();
-$elements = $form->getElements();
+$formAttributes = $form->getAttributes();
+$formElements = $form->getElements();
 
-Debug::dump($fieldsets, 'Form fieldsets');
-Debug::dump($elements, 'Form elements');
+// instantiate form view helper directly
+Debug::dump($formAttributes, 'Form attributes');
+Debug::dump($formElements, 'Form elements');

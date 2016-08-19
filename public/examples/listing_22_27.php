@@ -8,7 +8,6 @@
  */
 
 use Zend\Debug\Debug;
-use Zend\Filter\Compress;
 use Zend\Filter\StringToLower;
 use Zend\Filter\Word\DashToCamelCase;
 use Zend\I18n\Filter\Alpha;
